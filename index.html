@@ -1,59 +1,60 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <!-- SEO базовые мета-теги -->
+  <meta name="description" content="BURO — производство мебели и дизайн-проекты с аутсорс-дизайнерами. Индивидуальные решения для интерьера, полный цикл от идеи до реализации." />
+  <meta name="keywords" content="мебель, дизайн, интерьер, бюро, проекты, аутсорс, столярка, индивидуальный проект, BURO" />
+  <meta name="robots" content="index, follow" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="BURO — мебель и дизайн-проекты" />
+  <meta property="og:description" content="Производство мебели и дизайн-проекты с аутсорс-дизайнерами. Индивидуальные решения для вашего интерьера." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://buro.ru/" />
+  <meta property="og:image" content="https://buro.ru/og-image.jpg" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BURO — мебель и дизайн-проекты" />
+  <meta name="twitter:description" content="Производство мебели и дизайн-проекты с аутсорс-дизайнерами. Индивидуальные решения для вашего интерьера." />
+  <meta name="twitter:image" content="https://buro.ru/og-image.jpg" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BURO — пиксель-в-пиксель</title>
-  <style>
-    /* Базовые стили (как было) */
-    html,body{margin:0;padding:0;background:#C8C8C8;color:#4C4D4A}
-    body{font-family: Inter, Arial, sans-serif}
-    .wrap {
-  width: 100vw;
-  max-width: 100vw;
-  margin: 0 auto;
-  overflow-x: hidden;
-  position: relative;
-    }
-
-    /* Сцены (группы фреймов) */
-    .stage{display:none}
-    .stage.active{display:block}
-
-    /* Фрейм 1152x700 с абсолютным позиционированием (как было) */
-    .frame {
-  width: 1152px;
-  height: 700px;
-  position: absolute;
-  left: 0; top: 0;
-  background: #C8C8C8;
-  overflow: hidden;
-  transform-origin: top left;
-    }
-
-    /* Утилиты */
-    .click{cursor:pointer}
-    .shadow-on-hover{transition:transform .2s, box-shadow .2s}
-    .shadow-on-hover:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.22)}
-    .b{font-weight:700}
-
-    /* Шрифтовые имена из макета (если нет — падение на системные) */
-    .font-neutral{font-family: "Neutral Face", Inter, Arial, sans-serif}
-    .font-pathway{font-family: "Pathway Extreme", Inter, Arial, sans-serif}
-
-    /* Масштабирование для всех экранов */
-    .frame-fit{
-  position: relative;
-  width: 100vw;
-  height: calc(700px * var(--scale, 1));
-  overflow: hidden;
-    }
-    .frame-fit > .frame{
-  /* transform задается через JS */
-    }
-  </style>
+  <link rel="stylesheet" href="src/styles/main.css" />
 </head>
 <body>
+<!-- Модальное окно заявки -->
+<div id="modal-request" class="modal-fade" style="position:fixed;z-index:1002;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);align-items:center;justify-content:center;">
+  <div style="background:#fff;padding:40px 30px 30px 30px;max-width:400px;width:90vw;max-height:90vh;overflow-y:auto;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
+    <div style="font-size:1.5em;font-weight:700;margin-bottom:10px;">Оставить заявку</div>
+    <div style="font-size:1em;color:#555;margin-bottom:18px;">Выберите удобный способ связи или заполните форму ниже:</div>
+    <div style="display:flex;gap:10px;margin-bottom:18px;">
+  <a href="mailto:sales@burodsgn.ru" target="_blank" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">Email</a>
+  <a href="https://t.me/burodsgn" target="_blank" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">Telegram</a>
+  <a href="https://wa.me/79952025404" target="_blank" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">WhatsApp</a>
+    </div>
+    <form id="request-form">
+  <input type="text" name="name" placeholder="Ваше имя" required style="width:100%;margin-bottom:10px;padding:10px;border-radius:6px;border:1px solid #ccc;" />
+  <input type="tel" name="phone" placeholder="Телефон" style="width:100%;margin-bottom:10px;padding:10px;border-radius:6px;border:1px solid #ccc;" />
+  <textarea name="comment" placeholder="Комментарий или вопрос" style="width:100%;margin-bottom:10px;padding:10px;border-radius:6px;border:1px solid #ccc;resize:vertical;"></textarea>
+  <button type="submit" style="width:100%;padding:12px 0;background:#333;color:#fff;border:none;border-radius:8px;font-size:1em;font-weight:600;cursor:pointer;">Отправить</button>
+    </form>
+    <div id="request-success" style="display:none;color:green;font-weight:500;margin-top:10px;text-align:center;">Спасибо! Ваша заявка отправлена.</div>
+    <button id="modal-request-close" style="position:absolute;top:18px;right:18px;font-size:1.2em;background:none;border:none;cursor:pointer;">✕</button>
+  </div>
+</div>
+<!-- Модальное окно для фото -->
+<div id="modal-img" class="modal-fade" style="position:fixed;z-index:1001;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;">
+  <img id="modal-img-src" src="" alt="Фото" style="max-width:90vw;max-height:90vh;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);background:#fff;" />
+  <button id="modal-img-close" style="position:absolute;top:30px;right:40px;font-size:2em;background:none;border:none;color:#fff;cursor:pointer;">✕</button>
+</div>
+<!-- Модальное окно для документов -->
+<div id="modal-doc" class="modal-fade" style="position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);align-items:center;justify-content:center;">
+  <div style="background:#fff;padding:40px 30px 30px 30px;max-width:700px;width:90vw;max-height:80vh;overflow-y:auto;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
+    <div id="modal-doc-title" style="font-size:2em;font-weight:700;margin-bottom:20px;"></div>
+    <div id="modal-doc-text" style="font-size:1em;line-height:1.7;color:#333;"></div>
+    <button id="modal-doc-close" style="position:absolute;top:18px;right:18px;font-size:1.2em;background:none;border:none;cursor:pointer;">✕</button>
+  </div>
+</div>
 <div class="wrap">
 
   <!-- СЦЕНА: ЛИСТИНГ (Hero, Проекты, О нас, Контакты) -->
@@ -61,10 +62,10 @@
 
     <!-- HERO 1152x700 -->
     <section id="frame-hero" class="frame">
+      <h1 class="font-pathway" style="left:166px;top:185px;position:absolute;color:#000;font-size:300px;font-weight:400;margin:0;">BURO</h1>
       <div class="font-neutral b click" style="width:115px;height:13px;left:652px;top:34px;position:absolute;text-align:center;font-size:18px" data-go="#/contacts">Контакты</div>
       <div class="font-neutral b click" style="width:114px;height:13px;left:504px;top:34px;position:absolute;text-align:center;font-size:18px" data-go="#/projects">Проекты</div>
       <div class="font-neutral b click" style="width:115px;height:13px;left:389px;top:34px;position:absolute;text-align:center;font-size:18px" data-go="#/about">О нас</div>
-      <div class="font-pathway" style="left:166px;top:185px;position:absolute;color:#000;font-size:300px;font-weight:400">BURO</div>
     </section>
 
     <!-- ПРОЕКТЫ 1152x700 -->
@@ -82,12 +83,12 @@
       <div style="width:125px;height:20px;left:112px;top:349px;position:absolute;color:#000;font-size:15px;font-family: 'Neutral Face', Inter, sans-serif;font-weight:400">Surf Coffee</div>
 
       <!-- изображения по точным координатам (кликабельны) -->
-      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото1.jpg" alt="Проект крупный"/>
-      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото2.jpg" alt="Проект 290x280"/>
-      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:292px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото3.jpg" alt="Проект 292x280"/>
-      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото4.jpg" alt="Проект 360x280 верх"/>
-      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="фото5.jpg" alt="Проект 360x280 низ"/>
-      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:430px;height:280px;left:30px;top:380px;position:absolute;border-radius:10px" src="фото6.jpg" alt="Проект 290x280 низ"/>
+  <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото1.jpg" alt="Surf Coffee — дизайн-проект и мебель"/>
+  <img class="click shadow-on-hover" data-go="#/project/project2" style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото2.jpg" alt="Проект 2 — индивидуальная мебель"/>
+  <img class="click shadow-on-hover" data-go="#/project/project3" style="width:292px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото3.jpg" alt="Проект 3 — дизайн интерьера"/>
+  <img class="click shadow-on-hover" data-go="#/project/project4" style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото4.jpg" alt="Проект 4 — столярные работы"/>
+  <img class="click shadow-on-hover" data-go="#/project/project5" style="width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="фото5.jpg" alt="Проект 5 — мебель на заказ"/>
+  <img class="click shadow-on-hover" data-go="#/project/project6" style="width:430px;height:280px;left:30px;top:380px;position:absolute;border-radius:10px" src="фото6.jpg" alt="Проект 6 — дизайн и производство"/>
     </section>
 
     <!-- О НАС 1152x700 -->
@@ -102,11 +103,11 @@
     <!-- КОНТАКТЫ 1152x700 -->
     <section id="frame-contacts" class="frame">
       <div class="font-neutral b" style="width:139px;height:28px;left:37px;top:43px;position:absolute;font-size:18px;text-transform:lowercase">контакты</div>
-      <div style="width:392px;left:713px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px">Публичная оферта</div>
-      <div style="width:392px;left:418px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px">Пользовательское соглашение</div>
-      <div style="width:392px;left:62px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px">Политика конфиденциальности</div>
+  <div class="doc-link" data-doc="offer" style="width:392px;left:713px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px;">Публичная оферта</div>
+  <div class="doc-link" data-doc="agreement" style="width:392px;left:418px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px;">Пользовательское соглашение</div>
+  <div class="doc-link" data-doc="privacy" style="width:392px;left:62px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px;">Политика конфиденциальности</div>
       <div style="width:172px;height:39px;left:938px;top:601px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div class="click" data-go="#/form" style="width:198px;height:55px;left:925px;top:593px;position:absolute;text-align:center;display:flex;align-items:center;justify-content:center;color:#4C4D4A;font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:400;line-height:15.58px">Оставить заявку</div>
+  <div id="request-btn" style="width:198px;height:55px;left:925px;top:593px;position:absolute;text-align:center;display:flex;align-items:center;justify-content:center;color:#4C4D4A;font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:400;line-height:15.58px;">Оставить заявку</div>
 
       <div style="left:164px;top:146px;position:absolute;color:#000;font-size:300px;font-family:'Pathway Extreme', Inter, sans-serif;font-weight:400">BURO</div>
       <div class="click" data-go="#/contacts" style="left:968px;top:44px;position:absolute;color:#000;font-size:15px;line-height:18.17px">sales@burodsgn.ru</div>
@@ -133,22 +134,22 @@
       <div class="font-neutral b" style="width:142px;height:28px;left:526px;top:23px;position:absolute;font-size:18px">Surf coffee</div>
 
       <!-- изображения + подписи -->
-      <img style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото.jpg" alt="Второй этаж"/>
+      <img style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото1.jpg" alt="Второй этаж"/>
       <div style="width:99px;height:18px;left:125px;top:350px;position:absolute;color:#000;font-size:15px;font-weight:300">Второй этаж</div>
 
-      <img style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото.jpg" alt="Кассовая зона"/>
+      <img style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото2.jpg" alt="Кассовая зона"/>
       <div style="width:117px;height:18px;left:486px;top:350px;position:absolute;color:#000;font-size:15px;font-weight:300">Кассовая зона</div>
 
-      <img style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото.jpg" alt="Фото"/>
-      <img style="width:430px;height:283px;left:30px;top:377px;position:absolute;border-radius:10px" src="фото.jpg" alt="Фото"/>
-      <img style="width:290px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото.jpg" alt="Фото"/>
-      <img style="width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="фото.jpg" alt="Фото"/>
+      <img style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото3.jpg" alt="Фото"/>
+      <img style="width:430px;height:283px;left:30px;top:377px;position:absolute;border-radius:10px" src="фото4.jpg" alt="Фото"/>
+      <img style="width:290px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото5.jpg" alt="Фото"/>
+      <img style="width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="фото6.jpg" alt="Фото"/>
     </section>
 
     <!-- ПРОЕКТ/ОПИСАНИЕ 1152x700 -->
     <section id="frame-project-desc" class="frame">
-      <div class="font-neutral b" style="width:134px;height:28px;left:35px;top:31px;position:absolute;font-size:18px">описание</div>
-      <div style="width:1069px;left:35px;top:98px;position:absolute;color:#4C4D4A;font-size:15px;line-height:1.55">
+  <div class="font-neutral b" style="width:134px;height:28px;left:35px;top:31px;position:absolute;font-size:18px">описание</div>
+  <div style="width:1069px;left:35px;top:70px;position:absolute;color:#4C4D4A;font-size:15px;line-height:1.55">
         <span style="font-weight:700">Задача клиента:<br/><span> 
         <span> Создать функциональную кухню с обеденной зоной, сочетающуюся с открытой гостиной, с максимальным использованием пространства и скрытыми системами хранения.<br/><br/></span>
         <span style="font-weight:700">Решение:<br/></span>
@@ -163,94 +164,103 @@
   </div>
 </div>
 
+<script src="src/js/main.js"></script>
 <script>
-(function(){
-  'use strict';
-
-  const stageList = document.getElementById('stage-list');
-  const stageProject = document.getElementById('stage-project');
-
-  function showList(){
-    stageList.classList.add('active');
-    stageProject.classList.remove('active');
-    window.scrollTo(0,0);
+// Модальное окно заявки
+function showModal(modalId) {
+  var modal = document.getElementById(modalId);
+  modal.classList.add('modal-active');
+  modal.style.display = 'flex';
+  setTimeout(function(){ modal.classList.add('modal-active'); }, 10);
+}
+function hideModal(modalId) {
+  var modal = document.getElementById(modalId);
+  modal.classList.remove('modal-active');
+  setTimeout(function(){ modal.style.display = 'none'; }, 250);
+}
+// Открытие заявки
+document.getElementById('request-btn').onclick = function() {
+  showModal('modal-request');
+  document.getElementById('request-success').style.display = 'none';
+};
+document.getElementById('modal-request-close').onclick = function() {
+  hideModal('modal-request');
+};
+document.getElementById('modal-request').addEventListener('click', function(e) {
+  if (e.target === this) hideModal('modal-request');
+});
+document.getElementById('request-form').onsubmit = function(e) {
+  e.preventDefault();
+  document.getElementById('request-success').style.display = 'block';
+  setTimeout(function(){
+    hideModal('modal-request');
+    document.getElementById('request-form').reset();
+    document.getElementById('request-success').style.display = 'none';
+  }, 2000);
+};
+// Закрытие по Esc
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') {
+    ['modal-request','modal-img','modal-doc'].forEach(function(id){
+      var modal = document.getElementById(id);
+      if(modal && modal.style.display === 'flex') hideModal(id);
+    });
   }
-  function showProject(){
-    stageProject.classList.add('active');
-    stageList.classList.remove('active');
-    window.scrollTo(0,0);
-  }
-
-  function handleRoute(){
-    const hash = (location.hash||'').replace('#','');
-    if(hash.startsWith('/project/')){ showProject(); return; }
-    // список + скролл к секции
-    showList();
-    if(hash === '/projects') document.getElementById('frame-projects').scrollIntoView({behavior:'auto'});
-    else if(hash === '/about') document.getElementById('frame-about').scrollIntoView({behavior:'auto'});
-    else if(hash === '/contacts') document.getElementById('frame-contacts').scrollIntoView({behavior:'auto'});
-  }
-
-  // делегирование кликов по data-go
-  document.addEventListener('click', (e)=>{
-    const go = e.target.closest('[data-go]');
-    if(!go || !document.contains(go)) return;
-    e.preventDefault();
-    const target = go.getAttribute('data-go');
-    if(target){ location.hash = target; }
+});
+</script>
+<script>
+// Модальное окно для фото в проекте
+function enableProjectImageModal() {
+  document.querySelectorAll('#stage-project .frame img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function(e) {
+      document.getElementById('modal-img-src').src = this.src;
+      showModal('modal-img');
+    });
   });
-
-  window.addEventListener('hashchange', handleRoute);
-  handleRoute();
-
-  // Масштабирование для всех экранов
-  function wrapFrames(){
-    const frames = Array.from(document.querySelectorAll('.frame'));
-    frames.forEach(frame=>{
-      if (frame.parentElement && frame.parentElement.classList.contains('frame-fit')) return;
-      const fit = document.createElement('div');
-      fit.className = 'frame-fit';
-      frame.parentNode.insertBefore(fit, frame);
-      fit.appendChild(frame);
-    });
-    applyScale();
+}
+function closeModalImg() {
+  hideModal('modal-img');
+  document.getElementById('modal-img-src').src = '';
+}
+document.getElementById('modal-img-close').onclick = closeModalImg;
+document.getElementById('modal-img').addEventListener('click', function(e) {
+  if (e.target === this || e.target === document.getElementById('modal-img-src')) {
+    closeModalImg();
   }
-
-  function applyScale(){
-    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    const base = 1152, baseH = 700;
-    const k = vw / base;
-    document.querySelectorAll('.frame-fit').forEach(fit=>{
-      fit.style.setProperty('--scale', k);
-      fit.style.height = (baseH * k) + 'px';
-      const inner = fit.querySelector('.frame');
-      if (inner) inner.style.transform = 'scale(' + k + ')';
-    });
+});
+window.addEventListener('hashchange', function(){
+  if(location.hash.startsWith('#/project/')) enableProjectImageModal();
+});
+</script>
+<script>
+// Модальное окно для документов
+const docTexts = {
+  offer: {
+    title: 'Публичная оферта',
+    text: `Настоящая публичная оферта является официальным предложением ООО "Бюро" любому лицу заключить договор на оказание услуг. Оферта определяет условия предоставления услуг, права и обязанности сторон, порядок оплаты, ответственность и иные положения. Принимая условия оферты, вы соглашаетесь с правилами работы бюро.`
+  },
+  agreement: {
+    title: 'Пользовательское соглашение',
+    text: `Пользовательское соглашение регулирует правила пользования сайтом buro, права и обязанности пользователя, ограничения, ответственность и другие аспекты взаимодействия с сайтом и сервисами бюро. Используя сайт, вы подтверждаете согласие с настоящим соглашением.`
+  },
+  privacy: {
+    title: 'Политика конфиденциальности',
+    text: `В политике конфиденциальности описано, какие данные собираются, как они используются, права пользователя на свои данные, а также меры по их защите. Мы соблюдаем требования законодательства РФ и используем современные методы защиты информации.`
   }
-
-  function cleanupWrap(){
-    document.querySelectorAll('.frame-fit').forEach(fit=>{
-      const inner = fit.querySelector('.frame');
-      if (inner){
-        inner.style.transform = '';
-        fit.parentNode.insertBefore(inner, fit);
-      }
-      fit.remove();
-    });
-  }
-
-  function handleResize(){
-    cleanupWrap();
-    wrapFrames();
-    applyScale();
-  }
-
-  // Инициализация
-  wrapFrames();
-  window.addEventListener('resize', handleResize);
-  window.addEventListener('orientationchange', handleResize);
-
-})();
+};
+document.querySelectorAll('.doc-link').forEach(link => {
+  link.addEventListener('click', function() {
+    const doc = this.getAttribute('data-doc');
+    if (!docTexts[doc]) return;
+    document.getElementById('modal-doc-title').textContent = docTexts[doc].title;
+    document.getElementById('modal-doc-text').textContent = docTexts[doc].text;
+    showModal('modal-doc');
+  });
+});
+document.getElementById('modal-doc-close').onclick = function() {
+  hideModal('modal-doc');
+};
 </script>
 </body>
 </html>
