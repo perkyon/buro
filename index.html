@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BURO — пиксель-в-пиксель</title>
+  <style>
+    /* Базовые стили (как было) */
+    html,body{margin:0;padding:0;background:#C8C8C8;color:#4C4D4A}
+    body{font-family: Inter, Arial, sans-serif}
+    .wrap {
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0 auto;
+  overflow-x: hidden;
+  position: relative;
+    }
+
+    /* Сцены (группы фреймов) */
+    .stage{display:none}
+    .stage.active{display:block}
+
+    /* Фрейм 1152x700 с абсолютным позиционированием (как было) */
+    .frame {
+  width: 1152px;
+  height: 700px;
+  position: absolute;
+  left: 0; top: 0;
+  background: #C8C8C8;
+  overflow: hidden;
+  transform-origin: top left;
+    }
+
+    /* Утилиты */
+    .click{cursor:pointer}
+    .shadow-on-hover{transition:transform .2s, box-shadow .2s}
+    .shadow-on-hover:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.22)}
+    .b{font-weight:700}
+
+    /* Шрифтовые имена из макета (если нет — падение на системные) */
+    .font-neutral{font-family: "Neutral Face", Inter, Arial, sans-serif}
+    .font-pathway{font-family: "Pathway Extreme", Inter, Arial, sans-serif}
+
+    /* Масштабирование для всех экранов */
+    .frame-fit{
+  position: relative;
+  width: 100vw;
+  height: calc(700px * var(--scale, 1));
+  overflow: hidden;
+    }
+    .frame-fit > .frame{
+  /* transform задается через JS */
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- СЦЕНА: ЛИСТИНГ (Hero, Проекты, О нас, Контакты) -->
+  <div id="stage-list" class="stage active">
+
+    <!-- HERO 1152x700 -->
+    <section id="frame-hero" class="frame">
+      <div class="font-neutral b click" style="width:115px;height:13px;left:652px;top:34px;position:absolute;text-align:center;font-size:18px" data-go="#/contacts">Контакты</div>
+      <div class="font-neutral b click" style="width:114px;height:13px;left:504px;top:34px;position:absolute;text-align:center;font-size:18px" data-go="#/projects">Проекты</div>
+      <div class="font-neutral b click" style="width:115px;height:13px;left:389px;top:34px;position:absolute;text-align:center;font-size:18px" data-go="#/about">О нас</div>
+      <div class="font-pathway" style="left:166px;top:185px;position:absolute;color:#000;font-size:300px;font-weight:400">BURO</div>
+    </section>
+
+    <!-- ПРОЕКТЫ 1152x700 -->
+    <section id="frame-projects" class="frame">
+      <div class="font-neutral b" style="width:115px;height:28px;left:30px;top:17px;position:absolute;font-size:18px">Проекты</div>
+
+      <!-- серые карточки из макета (фоны) -->
+      <div style="width:290px;height:280px;left:30px;top:60px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
+      <div style="width:360px;height:280px;left:770px;top:60px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
+      <div style="width:360px;height:280px;left:770px;top:380px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
+      <div style="width:430px;height:280px;left:330px;top:60px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
+      <div style="width:290px;height:280px;left:470px;top:380px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
+
+      <!-- подпись Surf Coffee -->
+      <div style="width:125px;height:20px;left:112px;top:349px;position:absolute;color:#000;font-size:15px;font-family: 'Neutral Face', Inter, sans-serif;font-weight:400">Surf Coffee</div>
+
+      <!-- изображения по точным координатам (кликабельны) -->
+      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото1.jpg" alt="Проект крупный"/>
+      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото2.jpg" alt="Проект 290x280"/>
+      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:292px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото3.jpg" alt="Проект 292x280"/>
+      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото4.jpg" alt="Проект 360x280 верх"/>
+      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="фото5.jpg" alt="Проект 360x280 низ"/>
+      <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:430px;height:280px;left:30px;top:380px;position:absolute;border-radius:10px" src="фото6.jpg" alt="Проект 290x280 низ"/>
+    </section>
+
+    <!-- О НАС 1152x700 -->
+    <section id="frame-about" class="frame">
+      <div class="font-neutral b" style="width:98px;height:28px;left:35px;top:31px;position:absolute;font-size:18px">О нас</div>
+      <img style="width:639px;height:462px;left:495px;top:119px;position:absolute;border-radius:10px" src="фото.jpg" alt="О нас фото"/>
+      <div style="width:432px;height:500px;left:35px;top:105px;position:absolute;color:#4C4D4A;font-size:15px;line-height:1.45">
+        <span style="font-weight:700">Бюро</span><span> — место, где древесина становится историей<br/>Мы думаем о дереве так, как дерево думает о годичных кольцах — медленно, честно, в диалоге с ветрами и влагой. Каждая работа здесь — это сюжет, а каждый сюжет мы рассказываем так, чтобы он жил дольше стружки и лака. <br/><br/>Мы фиксируем рождение предметов: от первой идеи на бумаге до последнего мазка воска — и делимся этими историями, чтобы вы могли заглянуть внутрь процесса и почувствовать дыхание мастерской.<br/>Здесь проходят сольные и групповые экспозиции мастеров столярного дела: от воздушного штапеля до массивных, почти архитектурных конструкций. Свет скользит по волокнам, обнаруживая скрытую географию древесных карт.<br/>Полный цикл: <br/>замысел → чертёж → рез → сборка. Столы с ваискими верстаками, точный инструмент, ленточная пила и фуговальный станок — всё, чтобы идея стала объектом, а стружка — почвой для новой мысли.<br/>Заходите смотреть, трогать, стружить — и находить в тихом скрипе строганой доски свой собственный ритм.</span>
+      </div>
+    </section>
+
+    <!-- КОНТАКТЫ 1152x700 -->
+    <section id="frame-contacts" class="frame">
+      <div class="font-neutral b" style="width:139px;height:28px;left:37px;top:43px;position:absolute;font-size:18px;text-transform:lowercase">контакты</div>
+      <div style="width:392px;left:713px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px">Публичная оферта</div>
+      <div style="width:392px;left:418px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px">Пользовательское соглашение</div>
+      <div style="width:392px;left:62px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px">Политика конфиденциальности</div>
+      <div style="width:172px;height:39px;left:938px;top:601px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
+      <div class="click" data-go="#/form" style="width:198px;height:55px;left:925px;top:593px;position:absolute;text-align:center;display:flex;align-items:center;justify-content:center;color:#4C4D4A;font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:400;line-height:15.58px">Оставить заявку</div>
+
+      <div style="left:164px;top:146px;position:absolute;color:#000;font-size:300px;font-family:'Pathway Extreme', Inter, sans-serif;font-weight:400">BURO</div>
+      <div class="click" data-go="#/contacts" style="left:968px;top:44px;position:absolute;color:#000;font-size:15px;line-height:18.17px">sales@burodsgn.ru</div>
+      <div style="left:479px;top:44px;position:absolute;color:#000;font-size:15px;line-height:18.17px">адрес офиса Дальняя 8к1 </div>
+      <div style="left:452px;top:71px;position:absolute;color:#000;font-size:15px;line-height:18.17px">адрес производства Постовая 55</div>
+      <div style="left:981px;top:71px;position:absolute;color:#000;font-size:15px">+79952025404</div>
+
+      <!-- соц иконки 25x25 -->
+      <img style="width:25px;height:25px;left:37px;top:614px;position:absolute" src="фото.jpg" alt="иконка"/>
+      <img style="width:25px;height:25px;left:81px;top:614px;position:absolute" src="фото.jpg" alt="иконка"/>
+      <img style="width:25px;height:25px;left:125px;top:614px;position:absolute" src="фото.jpg" alt="иконка"/>
+      <img style="width:25px;height:25px;left:171px;top:615px;position:absolute" src="фото.jpg" alt="иконка"/>
+      <img style="width:25px;height:25px;left:214px;top:615px;position:absolute" src="фото.jpg" alt="иконка"/>
+    </section>
+
+  </div>
+
+  <!-- СЦЕНА: ПРОЕКТ (2 фрейма) -->
+  <div id="stage-project" class="stage">
+
+    <!-- ПРОЕКТ/ФОТО 1152x700 -->
+    <section id="frame-project-detail" class="frame">
+      <div style="width:119px;height:23px;left:108px;top:348px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
+      <div class="font-neutral b" style="width:142px;height:28px;left:526px;top:23px;position:absolute;font-size:18px">Surf coffee</div>
+
+      <!-- изображения + подписи -->
+      <img style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото.jpg" alt="Второй этаж"/>
+      <div style="width:99px;height:18px;left:125px;top:350px;position:absolute;color:#000;font-size:15px;font-weight:300">Второй этаж</div>
+
+      <img style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото.jpg" alt="Кассовая зона"/>
+      <div style="width:117px;height:18px;left:486px;top:350px;position:absolute;color:#000;font-size:15px;font-weight:300">Кассовая зона</div>
+
+      <img style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото.jpg" alt="Фото"/>
+      <img style="width:430px;height:283px;left:30px;top:377px;position:absolute;border-radius:10px" src="фото.jpg" alt="Фото"/>
+      <img style="width:290px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото.jpg" alt="Фото"/>
+      <img style="width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="фото.jpg" alt="Фото"/>
+    </section>
+
+    <!-- ПРОЕКТ/ОПИСАНИЕ 1152x700 -->
+    <section id="frame-project-desc" class="frame">
+      <div class="font-neutral b" style="width:134px;height:28px;left:35px;top:31px;position:absolute;font-size:18px">описание</div>
+      <div style="width:1069px;left:35px;top:98px;position:absolute;color:#4C4D4A;font-size:15px;line-height:1.55">
+        <span style="font-weight:700">Задача клиента:<br/><span> 
+        <span> Создать функциональную кухню с обеденной зоной, сочетающуюся с открытой гостиной, с максимальным использованием пространства и скрытыми системами хранения.<br/><br/></span>
+        <span style="font-weight:700">Решение:<br/></span>
+        <span>Разработали дизайн-проект с учётом стиля квартиры (современный минимализм с элементами теплого дерева).<br/>Использовали комбинацию МДФ с матовой эмалью и шпоном дуба.<br/>Столешница из кварцевого камня — устойчива к влаге, температуре и царапинам.<br/>Скрытые механизмы подъёма фасадов (Blum Aventos) и доводчики на всех выдвижных ящиках.<br/>Подсветка рабочей зоны встроенными LED-профилями.<br/><br/></span>
+        <span style="font-weight:700">Моменты в процессе работы:<br/></span>
+        <span>На замерах выявили, что стены имеют отклонение до 2 см — внесли корректировки в размеры модулей, чтобы фасады встали в идеальный уровень.<br/>Клиент хотел встроить технику, которая не была учтена в первоначальном проекте — оперативно внесли изменения и адаптировали секции.<br/>В процессе монтажа обнаружили, что розетки в рабочей зоне сдвинуты на 10 см — сделали скрытую доработку электрики, чтобы избежать видимых кабелей.<br/>Сроки производства пришлось ускорить на 5 дней по просьбе клиента — согласовали дополнительную загрузку цеха. <br/><br/></span>
+        <span style="font-weight:700">Результат:</span>
+        <span> Проект выполнен «под ключ» за 28 календарных дней:<br/>дизайн-проект и визуализация — 5 дней;<br/>производство — 18 дней;<br/>монтаж — 2 дня;<br/>корректировки и финальный осмотр — 3 дня.<br/><br/>Клиент получил готовую кухню, полностью соответствующую изначальному замыслу, с гарантией 5 лет на всю фурнитуру и материалы.</span>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  const stageList = document.getElementById('stage-list');
+  const stageProject = document.getElementById('stage-project');
+
+  function showList(){
+    stageList.classList.add('active');
+    stageProject.classList.remove('active');
+    window.scrollTo(0,0);
+  }
+  function showProject(){
+    stageProject.classList.add('active');
+    stageList.classList.remove('active');
+    window.scrollTo(0,0);
+  }
+
+  function handleRoute(){
+    const hash = (location.hash||'').replace('#','');
+    if(hash.startsWith('/project/')){ showProject(); return; }
+    // список + скролл к секции
+    showList();
+    if(hash === '/projects') document.getElementById('frame-projects').scrollIntoView({behavior:'auto'});
+    else if(hash === '/about') document.getElementById('frame-about').scrollIntoView({behavior:'auto'});
+    else if(hash === '/contacts') document.getElementById('frame-contacts').scrollIntoView({behavior:'auto'});
+  }
+
+  // делегирование кликов по data-go
+  document.addEventListener('click', (e)=>{
+    const go = e.target.closest('[data-go]');
+    if(!go || !document.contains(go)) return;
+    e.preventDefault();
+    const target = go.getAttribute('data-go');
+    if(target){ location.hash = target; }
+  });
+
+  window.addEventListener('hashchange', handleRoute);
+  handleRoute();
+
+  // Масштабирование для всех экранов
+  function wrapFrames(){
+    const frames = Array.from(document.querySelectorAll('.frame'));
+    frames.forEach(frame=>{
+      if (frame.parentElement && frame.parentElement.classList.contains('frame-fit')) return;
+      const fit = document.createElement('div');
+      fit.className = 'frame-fit';
+      frame.parentNode.insertBefore(fit, frame);
+      fit.appendChild(frame);
+    });
+    applyScale();
+  }
+
+  function applyScale(){
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    const base = 1152, baseH = 700;
+    const k = vw / base;
+    document.querySelectorAll('.frame-fit').forEach(fit=>{
+      fit.style.setProperty('--scale', k);
+      fit.style.height = (baseH * k) + 'px';
+      const inner = fit.querySelector('.frame');
+      if (inner) inner.style.transform = 'scale(' + k + ')';
+    });
+  }
+
+  function cleanupWrap(){
+    document.querySelectorAll('.frame-fit').forEach(fit=>{
+      const inner = fit.querySelector('.frame');
+      if (inner){
+        inner.style.transform = '';
+        fit.parentNode.insertBefore(inner, fit);
+      }
+      fit.remove();
+    });
+  }
+
+  function handleResize(){
+    cleanupWrap();
+    wrapFrames();
+    applyScale();
+  }
+
+  // Инициализация
+  wrapFrames();
+  window.addEventListener('resize', handleResize);
+  window.addEventListener('orientationchange', handleResize);
+
+})();
+</script>
+</body>
+</html>
+
