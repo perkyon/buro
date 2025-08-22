@@ -1,6 +1,6 @@
 /* main.css — стили для публичной части */
-html,body{margin:0;padding:0;background:#C8C8C8;color:#4C4D4A}
-body{font-family: Inter, Arial, sans-serif}
+html,body{margin:0;padding:0;background:#C8C8C8;color:#000}
+body{font-family: Inter, Arial, sans-serif; color: #000;}
 .wrap {
   width: 100vw;
   max-width: 100vw;

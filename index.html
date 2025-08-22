@@ -20,6 +20,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BURO — пиксель-в-пиксель</title>
   <link rel="stylesheet" href="src/styles/main.css" />
+  <link rel="stylesheet" href="src/styles/footer.css" />
+  <link rel="stylesheet" href="src/styles/projects.css" />
+  <style id="debug-frames">
+    /* debug helpers: visualize frame boxes and disable scaling to find layout issues */
+    .frame{outline:2px dashed rgba(0,0,0,0.12);}
+    .frame-fit{outline:2px solid rgba(255,0,0,0.06);}
+    /* temporarily disable inner transform to see actual positions */
+    .frame-fit .frame{transform:none !important}
+    .projects-wrap{position:relative;left:0;top:0}
+  </style>
 </head>
 <body>
 <!-- Модальное окно заявки -->
@@ -70,25 +80,25 @@
 
     <!-- ПРОЕКТЫ 1152x700 -->
     <section id="frame-projects" class="frame">
-      <div class="font-neutral b" style="width:115px;height:28px;left:30px;top:17px;position:absolute;font-size:18px">Проекты</div>
+      <div class="projects-wrap">
+        <div class="projects-header">
+          <h3 class="projects-title">ПРОЕКТЫ HORECA</h3>
+        </div>
+        <div class="projects-grid projects-horeca">
+          <a class="project-card click" data-go="#/project/project2"><img src="фото2.jpg" alt="Проект 2 — индивидуальная мебель"/></a>
+          <a class="project-card click" data-go="#/project/surf-coffee"><img src="фото1.jpg" alt="Surf Coffee — дизайн-проект и мебель"/></a>
+          <a class="project-card click" data-go="#/project/project3"><img src="фото3.jpg" alt="Проект 3 — дизайн интерьера"/></a>
+        </div>
 
-      <!-- серые карточки из макета (фоны) -->
-      <div style="width:290px;height:280px;left:30px;top:60px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div style="width:360px;height:280px;left:770px;top:60px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div style="width:360px;height:280px;left:770px;top:380px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div style="width:430px;height:280px;left:330px;top:60px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div style="width:290px;height:280px;left:470px;top:380px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-
-      <!-- подпись Surf Coffee -->
-      <div style="width:125px;height:20px;left:112px;top:349px;position:absolute;color:#000;font-size:15px;font-family: 'Neutral Face', Inter, sans-serif;font-weight:400">Surf Coffee</div>
-
-      <!-- изображения по точным координатам (кликабельны) -->
-  <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото1.jpg" alt="Surf Coffee — дизайн-проект и мебель"/>
-  <img class="click shadow-on-hover" data-go="#/project/project2" style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото2.jpg" alt="Проект 2 — индивидуальная мебель"/>
-  <img class="click shadow-on-hover" data-go="#/project/project3" style="width:292px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото3.jpg" alt="Проект 3 — дизайн интерьера"/>
-  <img class="click shadow-on-hover" data-go="#/project/project4" style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото4.jpg" alt="Проект 4 — столярные работы"/>
-  <img class="click shadow-on-hover" data-go="#/project/project5" style="width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="фото5.jpg" alt="Проект 5 — мебель на заказ"/>
-  <img class="click shadow-on-hover" data-go="#/project/project6" style="width:430px;height:280px;left:30px;top:380px;position:absolute;border-radius:10px" src="фото6.jpg" alt="Проект 6 — дизайн и производство"/>
+        <div class="projects-header">
+          <h3 class="projects-title">ПРОЕКТЫ ДОМ И ОФИС</h3>
+        </div>
+        <div class="projects-grid projects-home">
+          <a class="project-card click" data-go="#/project/project4"><img src="фото4.jpg" alt="Проект 4 — столярные работы"/></a>
+          <a class="project-card click" data-go="#/project/project5"><img src="фото5.jpg" alt="Проект 5 — мебель на заказ"/></a>
+          <a class="project-card click" data-go="#/project/project6"><img src="фото5.jpg" alt="Проект 6 — дизайн и производство"/></a>
+        </div>
+      </div>
     </section>
 
     <!-- О НАС 1152x700 -->
@@ -99,52 +109,7 @@
         <span style="font-weight:700">Бюро</span><span> — место, где древесина становится историей<br/>Мы думаем о дереве так, как дерево думает о годичных кольцах — медленно, честно, в диалоге с ветрами и влагой. Каждая работа здесь — это сюжет, а каждый сюжет мы рассказываем так, чтобы он жил дольше стружки и лака. <br/><br/>Мы фиксируем рождение предметов: от первой идеи на бумаге до последнего мазка воска — и делимся этими историями, чтобы вы могли заглянуть внутрь процесса и почувствовать дыхание мастерской.<br/>Здесь проходят сольные и групповые экспозиции мастеров столярного дела: от воздушного штапеля до массивных, почти архитектурных конструкций. Свет скользит по волокнам, обнаруживая скрытую географию древесных карт.<br/>Полный цикл: <br/>замысел → чертёж → рез → сборка. Столы с ваискими верстаками, точный инструмент, ленточная пила и фуговальный станок — всё, чтобы идея стала объектом, а стружка — почвой для новой мысли.<br/>Заходите смотреть, трогать, стружить — и находить в тихом скрипе строганой доски свой собственный ритм.</span>
       </div>
     </section>
-
-    <!-- КОНТАКТЫ 1152x700 -->
-    <section id="frame-contacts" class="frame">
-      <div class="font-neutral b" style="width:139px;height:28px;left:37px;top:43px;position:absolute;font-size:18px;text-transform:lowercase">контакты</div>
-  <div class="doc-link" data-doc="offer" style="width:392px;left:713px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px;">Публичная оферта</div>
-  <div class="doc-link" data-doc="agreement" style="width:392px;left:418px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px;">Пользовательское соглашение</div>
-  <div class="doc-link" data-doc="privacy" style="width:392px;left:62px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px;">Политика конфиденциальности</div>
-      <div style="width:172px;height:39px;left:938px;top:601px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-  <div id="request-btn" style="width:198px;height:55px;left:925px;top:593px;position:absolute;text-align:center;display:flex;align-items:center;justify-content:center;color:#4C4D4A;font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:400;line-height:15.58px;">Оставить заявку</div>
-
-      <div style="left:164px;top:146px;position:absolute;color:#000;font-size:300px;font-family:'Pathway Extreme', Inter, sans-serif;font-weight:400">BURO</div>
-      <div class="click" data-go="#/contacts" style="left:968px;top:44px;position:absolute;color:#000;font-size:15px;line-height:18.17px">sales@burodsgn.ru</div>
-      <div style="left:479px;top:44px;position:absolute;color:#000;font-size:15px;line-height:18.17px">адрес офиса Дальняя 8к1 </div>
-      <div style="left:452px;top:71px;position:absolute;color:#000;font-size:15px;line-height:18.17px">адрес производства Постовая 55</div>
-      <div style="left:981px;top:71px;position:absolute;color:#000;font-size:15px">+79952025404</div>
-
-      <!-- соц иконки 25x25 -->
-      <img style="width:25px;height:25px;left:37px;top:614px;position:absolute" src="фото.jpg" alt="иконка"/>
-      <img style="width:25px;height:25px;left:81px;top:614px;position:absolute" src="фото.jpg" alt="иконка"/>
-      <img style="width:25px;height:25px;left:125px;top:614px;position:absolute" src="фото.jpg" alt="иконка"/>
-      <img style="width:25px;height:25px;left:171px;top:615px;position:absolute" src="фото.jpg" alt="иконка"/>
-      <img style="width:25px;height:25px;left:214px;top:615px;position:absolute" src="фото.jpg" alt="иконка"/>
-    </section>
-
-  </div>
-
-  <!-- СЦЕНА: ПРОЕКТ (2 фрейма) -->
-  <div id="stage-project" class="stage">
-
-    <!-- ПРОЕКТ/ФОТО 1152x700 -->
-    <section id="frame-project-detail" class="frame">
-      <div style="width:119px;height:23px;left:108px;top:348px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div class="font-neutral b" style="width:142px;height:28px;left:526px;top:23px;position:absolute;font-size:18px">Surf coffee</div>
-
-      <!-- изображения + подписи -->
-      <img style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото1.jpg" alt="Второй этаж"/>
-      <div style="width:99px;height:18px;left:125px;top:350px;position:absolute;color:#000;font-size:15px;font-weight:300">Второй этаж</div>
-
-      <img style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото2.jpg" alt="Кассовая зона"/>
-      <div style="width:117px;height:18px;left:486px;top:350px;position:absolute;color:#000;font-size:15px;font-weight:300">Кассовая зона</div>
-
-      <img style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото3.jpg" alt="Фото"/>
-      <img style="width:430px;height:283px;left:30px;top:377px;position:absolute;border-radius:10px" src="фото4.jpg" alt="Фото"/>
-      <img style="width:290px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото5.jpg" alt="Фото"/>
-      <img style="width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="фото6.jpg" alt="Фото"/>
-    </section>
+  </section>
 
     <!-- ПРОЕКТ/ОПИСАНИЕ 1152x700 -->
     <section id="frame-project-desc" class="frame">
@@ -240,7 +205,7 @@ const docTexts = {
     title: 'Публичная оферта',
     text: `Настоящая публичная оферта является официальным предложением ООО "Бюро" любому лицу заключить договор на оказание услуг. Оферта определяет условия предоставления услуг, права и обязанности сторон, порядок оплаты, ответственность и иные положения. Принимая условия оферты, вы соглашаетесь с правилами работы бюро.`
   },
-  agreement: {
+agreement: {
     title: 'Пользовательское соглашение',
     text: `Пользовательское соглашение регулирует правила пользования сайтом buro, права и обязанности пользователя, ограничения, ответственность и другие аспекты взаимодействия с сайтом и сервисами бюро. Используя сайт, вы подтверждаете согласие с настоящим соглашением.`
   },
@@ -262,6 +227,23 @@ document.getElementById('modal-doc-close').onclick = function() {
   hideModal('modal-doc');
 };
 </script>
+
+<!-- Футер -->
+<footer>
+  <div class="footer-bar">
+    <div class="footer-icons">
+      <a href="https://instagram.com/burodsgn" target="_blank"><img src="Инстаграм.png" alt="Instagram" style="width:32px;height:32px;object-fit:contain;" /></a>
+      <a href="https://wa.me/79952025404" target="_blank"><img src="Ватсап.png" alt="WhatsApp" style="width:32px;height:32px;object-fit:contain;" /></a>
+      <a href="https://t.me/burodsgn" target="_blank"><img src="Телеграм.png" alt="Telegram" style="width:32px;height:32px;object-fit:contain;" /></a>
+      <a href="https://vk.com/burodsgn" target="_blank"><img src="Вконтакте.png" alt="VK" style="width:32px;height:32px;object-fit:contain;" /></a>
+      <a href="https://pinterest.com/burodsgn" target="_blank"><img src="Пинтерест.png" alt="Pinterest" style="width:32px;height:32px;object-fit:contain;" /></a>
+    </div>
+    <div class="footer-policy">
+      <a href="#" class="doc-link" data-doc="agreement">Пользовательское соглашение</a>
+      <a href="#" class="doc-link" data-doc="offer">Публичная оферта</a>
+      <a href="#" class="doc-link" data-doc="privacy">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
-

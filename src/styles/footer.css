@@ -1,0 +1,39 @@
+/* Футер: черная полоса, менее жирный текст, выравнивание иконок и политики */
+.footer-bar {
+  width: 100vw;
+  background: #000;
+  height: 54px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding-left: 24px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+.footer-icons {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.footer-icons img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+.footer-policy {
+  display: flex;
+  gap: 48px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #fff;
+  margin-left: 120px;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+.footer-policy a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+  font-family: Inter, Arial, sans-serif;
+}

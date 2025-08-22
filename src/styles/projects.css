@@ -1,0 +1,30 @@
+/* styles for projects grid — centralized control for spacing, radiuses and shadows */
+.projects-wrap{
+	position: relative;
+	width: 1092px; /* fits inside frame (1152 minus side margins) */
+	margin: 0 30px;
+}
+.projects-header{margin-bottom:12px}
+.projects-title{font-size:16px;font-weight:700;color:#000;margin:18px 0}
+.projects-grid{
+	display:grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+	align-items: stretch;
+}
+.project-card{display:block;overflow:hidden;border-radius:10px}
+.project-card img{width:100%;height:240px;object-fit:cover;display:block;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.08);transition:transform .18s,box-shadow .18s}
+.project-card:hover img{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.15)}
+
+/* variations if you need different heights for HORECA vs HOME */
+.projects-horeca .project-card img{height:280px}
+.projects-home .project-card img{height:280px}
+
+/* small screens fallback — scale grid into columns */
+@media (max-width:1200px){
+	.projects-wrap{width:calc(100vw - 60px)}
+	.projects-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:720px){
+	.projects-grid{grid-template-columns:1fr}
+}

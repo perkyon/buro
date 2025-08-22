@@ -37,8 +37,8 @@
       desc: 'Описание проекта 5...'
     },
     'project6': {
-      title: 'Проект 6',
-      images: ['фото6.jpg', 'фото.jpg'],
+  title: 'Проект 6',
+  images: ['фото5.jpg', 'фото.jpg'],
       desc: 'Описание проекта 6...'
     }
   };
@@ -67,27 +67,30 @@
     if(hash === '/offer') {
       showList();
       document.querySelectorAll('.frame').forEach(f=>f.style.display='none');
-      document.getElementById('frame-offer').style.display='block';
+      const fo = document.getElementById('frame-offer');
+      if(fo) fo.style.display='block';
       return;
     }
     if(hash === '/agreement') {
       showList();
       document.querySelectorAll('.frame').forEach(f=>f.style.display='none');
-      document.getElementById('frame-agreement').style.display='block';
+      const ag = document.getElementById('frame-agreement');
+      if(ag) ag.style.display='block';
       return;
     }
     if(hash === '/privacy') {
       showList();
       document.querySelectorAll('.frame').forEach(f=>f.style.display='none');
-      document.getElementById('frame-privacy').style.display='block';
+      const pr = document.getElementById('frame-privacy');
+      if(pr) pr.style.display='block';
       return;
     }
     // Стандартные секции
     showList();
     document.querySelectorAll('.frame').forEach(f=>f.style.display='');
-    if(hash === '/projects') document.getElementById('frame-projects').scrollIntoView({behavior:'smooth'});
-    else if(hash === '/about') document.getElementById('frame-about').scrollIntoView({behavior:'smooth'});
-    else if(hash === '/contacts') document.getElementById('frame-contacts').scrollIntoView({behavior:'smooth'});
+  if(hash === '/projects') { const fp = document.getElementById('frame-projects'); if(fp) fp.scrollIntoView({behavior:'smooth'}); }
+  else if(hash === '/about') { const fa = document.getElementById('frame-about'); if(fa) fa.scrollIntoView({behavior:'smooth'}); }
+  else if(hash === '/contacts') { const fc = document.getElementById('frame-contacts'); if(fc) fc.scrollIntoView({behavior:'smooth'}); }
   }
   document.addEventListener('click', (e)=>{
     const go = e.target.closest('[data-go]');
