@@ -8,8 +8,8 @@
       stageProject.classList.remove('active');
       window.scrollTo(0,0);
     }
-    // данные проектов загружаются из отдельного JSON-файла для удобства редактирования
-    let projects = {};
+    // данные проектов берутся из отдельного JS-файла для удобства редактирования
+    const projects = window.PROJECTS || {}; 
     function populateProjects(){
       Object.entries(projects).forEach(([id, data])=>{
         const grid = document.querySelector(`.projects-grid[data-category="${data.category}"]`);
@@ -24,17 +24,8 @@
         grid.appendChild(link);
       });
     }
-    fetch('src/data/projects.json')
-      .then(r => r.json())
-      .then(data => {
-        projects = data;
-        populateProjects();
-        handleRoute();
-      })
-      .catch(err => {
-        console.error('Failed to load projects.json', err);
-        handleRoute();
-      });
+    populateProjects();
+    handleRoute();
 
   function showProject(){
     stageProject.classList.add('active');
