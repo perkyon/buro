@@ -1,47 +1,31 @@
 // main.js — скрипты для публичной части
 (function(){
   'use strict';
-  const stageList = document.getElementById('stage-list');
-  const stageProject = document.getElementById('stage-project');
-  function showList(){
-    stageList.classList.add('active');
-    stageProject.classList.remove('active');
-    window.scrollTo(0,0);
-  }
-  // ...откат: удалено всё, что связано с единым стилем и визуальным откликом для кнопок и форм...
-  // Индивидуальные проекты
-  const projects = {
-    'surf-coffee': {
-      title: 'Surf Coffee',
-      images: ['фото1.jpg', 'фото.jpg'],
-      desc: 'Описание Surf Coffee...'
-    },
-    'project2': {
-      title: 'Проект 2',
-      images: ['фото2.jpg', 'фото.jpg'],
-      desc: 'Описание проекта 2...'
-    },
-    'project3': {
-      title: 'Проект 3',
-      images: ['фото3.jpg', 'фото.jpg'],
-      desc: 'Описание проекта 3...'
-    },
-    'project4': {
-      title: 'Проект 4',
-      images: ['фото4.jpg', 'фото.jpg'],
-      desc: 'Описание проекта 4...'
-    },
-    'project5': {
-      title: 'Проект 5',
-      images: ['фото5.jpg', 'фото.jpg'],
-      desc: 'Описание проекта 5...'
-    },
-    'project6': {
-  title: 'Проект 6',
-  images: ['фото5.jpg', 'фото.jpg'],
-      desc: 'Описание проекта 6...'
+    const stageList = document.getElementById('stage-list');
+    const stageProject = document.getElementById('stage-project');
+    function showList(){
+      stageList.classList.add('active');
+      stageProject.classList.remove('active');
+      window.scrollTo(0,0);
     }
-  };
+    // данные проектов берутся из отдельного JS-файла для удобства редактирования
+    const projects = window.PROJECTS || {}; 
+    function populateProjects(){
+      Object.entries(projects).forEach(([id, data])=>{
+        const grid = document.querySelector(`.projects-grid[data-category="${data.category}"]`);
+        if(!grid) return;
+        const link = document.createElement('a');
+        link.className = 'project-card click';
+        link.setAttribute('data-go', `#/project/${id}`);
+        const img = document.createElement('img');
+        img.src = data.thumbnail || (data.images && data.images[0]) || '';
+        img.alt = data.title;
+        link.appendChild(img);
+        grid.appendChild(link);
+      });
+    }
+    populateProjects();
+    handleRoute();
 
   function showProject(){
     stageProject.classList.add('active');
@@ -52,14 +36,25 @@
     const match = hash.match(/^\/project\/(.+)$/);
     if (!match) return;
     const projectId = match[1];
-    const data = projects[projectId];
-    if (!data) return;
-    // Заполняем контент
-    document.querySelector('#frame-project-detail .font-neutral.b').textContent = data.title;
-    // Можно добавить смену фото и описания, если потребуется
-    document.querySelector('#frame-project-desc .font-neutral.b').textContent = 'описание';
-    document.querySelector('#frame-project-desc span').textContent = data.desc;
-  }
+      const data = projects[projectId];
+      if (!data) return;
+      // Заполняем контент
+      const titleEl = document.getElementById('project-title');
+      if(titleEl) titleEl.textContent = data.title;
+      const imgWrap = document.getElementById('project-images');
+      if(imgWrap){
+        imgWrap.innerHTML='';
+        (data.images||[]).forEach(src=>{
+          const img=document.createElement('img');
+          img.src=src;
+          img.alt=data.title;
+          imgWrap.appendChild(img);
+        });
+      }
+      const descEl = document.getElementById('project-desc');
+      if(descEl) descEl.textContent = data.desc;
+      if(typeof enableProjectImageModal === 'function') enableProjectImageModal();
+    }
   function handleRoute(){
     const hash = (location.hash||'').replace('#','');
     if(hash.startsWith('/project/')){ showProject(); return; }
