@@ -1,13 +1,13 @@
-/* Футер: черная полоса, менее жирный текст, выравнивание иконок и политики */
+/* Футер: рамка с соцсетями и ссылками на документы */
 .footer-bar {
   width: 100vw;
-  background: #000;
+  background: #C8C8C8;
+  border: 2px solid #000;
   height: 54px;
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
-  padding-left: 24px;
-  padding-bottom: 10px;
+  align-items: center;
+  padding: 0 24px;
   box-sizing: border-box;
 }
 .footer-icons {
@@ -25,14 +25,14 @@
   gap: 48px;
   font-size: 13px;
   font-weight: 400;
-  color: #fff;
+  color: #000;
   margin-left: 120px;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
 }
 .footer-policy a {
-  color: #fff;
+  color: #000;
   text-decoration: none;
   font-weight: 400;
   font-family: Inter, Arial, sans-serif;
