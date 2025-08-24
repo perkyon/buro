@@ -1,5 +1,5 @@
 /* main.css — стили для публичной части */
-html,body{margin:0;padding:0;background:#C8C8C8;color:#4C4D4A}
+html,body{margin:0;padding:0;background:#C8C8C8;color:#000000;scroll-behavior:smooth}
 body{font-family: Inter, Arial, sans-serif}
 .wrap {
   width: 100vw;
@@ -44,4 +44,56 @@ body{font-family: Inter, Arial, sans-serif}
   transform: scale(1);
   pointer-events: auto;
 }
+.modal-fade{opacity:0;visibility:hidden;transform:translateY(6px);transition:all .18s ease}
+.modal-fade.show{opacity:1;visibility:visible;transform:none}
+
+/* Project modal shared styles */
+.project-modal{display:none;position:fixed;z-index:1001;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);align-items:center;justify-content:center}
+.project-modal.show{display:flex}
+.project-modal__img{max-width:90vw;max-height:90vh;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);background:#fff}
+.project-modal__close{position:absolute;top:30px;right:40px;font-size:2em;background:none;border:none;color:#fff;cursor:pointer}
+.frame img{cursor:zoom-in}
+
+/* Общие стили для проектных страниц (универсальные) */
+html, body { height: 100%; margin: 0; }
+.page-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.frame { width: 1152px; height: 700px; position: relative; background: transparent; }
+.frame img { position: absolute; border-radius: 10px; object-fit: cover; }
+.title { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); font-size: 28px; font-weight: 700; }
+@media (max-width:1200px){ .frame{width:92vw;height:calc(92vw * 700 / 1152);} .title{font-size:20px} }
+
+/* Footer */
+#site-footer a{color:inherit}
+/* Increased social icon sizes */
+#site-footer svg{width:40px;height:40px;display:block}
+#footer-left img, #footer-left svg{width:40px;height:40px}
+/* Настраиваемая величина подъёма футера (можно задать в px или cm) */
+:root{ --footer-lift: 0px; }
+#site-footer{box-shadow:0 -6px 24px rgba(0,0,0,0.25)}
+/* Футер: компактный, не перекрывает содержимое */
+/* более компактный футер */
+#site-footer{position:relative;margin-top:0;z-index:5;height:64px;padding-top:6px;padding-bottom:6px}
+@media (max-width:600px){
+  #site-footer{height:72px;padding-top:8px;padding-bottom:8px}
+}
+
+/* Inner footer wrapper: full width flex (left icons, center docs, right empty) */
+#site-footer > .footer-inner{ width:100%; box-sizing:border-box; display:flex; align-items:center; justify-content:space-between; padding:0 12px; }
+
+/* Иконки слева — чуть выходят за padding, почти к краю экрана */
+#footer-left{ display:flex; align-items:center; margin-left:36px; margin-top:6px }
+.footer-link{ display:inline-block; width:44px; height:44px; margin-right:12px }
+.footer-link img{ width:40px; height:40px; display:block }
+
+/* Документы: теперь отдельная полоса под футером */
+#docs-bar{ background:#000; color:#fff; }
+#docs-inner a{ font-size:15px; color:#fff; text-decoration:none }
+/* Немного увеличим отступ футера чтобы иконки не упирались в край */
+#site-footer > .footer-inner{ padding:12px 20px; }
+
+/* Контакты: каждая строка должна быть по высоте заголовка (28px) */
+.contacts-top-right{ position:absolute; right:24px; top:43px; text-align:right }
+.contacts-top-right > div{ height:28px; line-height:28px; font-size:13px; }
+.contacts-center-block{ position:absolute; left:50%; top:43px; transform:translateX(-50%); text-align:center }
+.contacts-center-block > div{ height:28px; line-height:28px; font-size:13px; }
 /* Единый стиль для кнопок и форм */

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Проект 4 — BURO</title>
+  <link rel="stylesheet" href="../src/styles/main.css" />
+  <style>
+    /* Индивидуальные позиции изображений для проекта 4 */
+    .i1{width:290px;height:280px;left:30px;top:60px}
+    .i2{width:430px;height:280px;left:330px;top:60px}
+    .i3{width:360px;height:280px;left:770px;top:60px}
+    .i4{width:430px;height:283px;left:30px;top:377px}
+    .i5{width:290px;height:280px;left:470px;top:380px}
+    .i6{width:360px;height:280px;left:770px;top:380px}
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <div class="frame" role="main">
+      <div class="title">Проект 4</div>
+  <img class="i1 modal-enabled" src="../assets/фото4.jpg" alt="Фото 1" />
+  <img class="i2 modal-enabled" src="../assets/фото5.jpg" alt="Фото 2" />
+  <img class="i3 modal-enabled" src="../assets/фото6.jpg" alt="Фото 3" />
+  <img class="i4 modal-enabled" src="../assets/фото1.jpg" alt="Фото 4" />
+  <img class="i5 modal-enabled" src="../assets/фото2.jpg" alt="Фото 5" />
+  <img class="i6 modal-enabled" src="../assets/фото3.jpg" alt="Фото 6" />
+    </div>
+  </div>
+
+  <section style="max-width:1100px;margin:20px auto 60px;padding:0 20px;color:#000;font-size:15px;line-height:1.55;">
+    <h3 style="font-size:18px;margin-bottom:10px;font-weight:700;">Описание</h3>
+    <p>
+      <strong>Задача клиента:</strong><br>
+      Визуальное наполнение проекта 4.
+    </p>
+  </section>
+
+  <div class="project-modal" role="dialog" aria-hidden="true">
+    <img class="project-modal__img" src="" alt="" />
+    <button class="project-modal__close" aria-label="Закрыть модальное окно">✕</button>
+  </div>
+
+  <script src="../src/js/modal.js"></script>
+
+</body>
+</html>

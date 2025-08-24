@@ -6,39 +6,39 @@
   function showList(){
     stageList.classList.add('active');
     stageProject.classList.remove('active');
-    window.scrollTo(0,0);
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }
   // ...откат: удалено всё, что связано с единым стилем и визуальным откликом для кнопок и форм...
   // Индивидуальные проекты
   const projects = {
     'surf-coffee': {
-      title: 'Surf Coffee',
-      images: ['фото1.jpg', 'фото.jpg'],
+      title: 'Проект 1',
+    images: ['assets/фото1.jpg', 'assets/фото.jpg'],
       desc: 'Описание Surf Coffee...'
     },
     'project2': {
       title: 'Проект 2',
-      images: ['фото2.jpg', 'фото.jpg'],
+    images: ['assets/фото2.jpg', 'assets/фото.jpg'],
       desc: 'Описание проекта 2...'
     },
     'project3': {
       title: 'Проект 3',
-      images: ['фото3.jpg', 'фото.jpg'],
+    images: ['assets/фото3.jpg', 'assets/фото.jpg'],
       desc: 'Описание проекта 3...'
     },
     'project4': {
       title: 'Проект 4',
-      images: ['фото4.jpg', 'фото.jpg'],
+    images: ['assets/фото4.jpg', 'assets/фото.jpg'],
       desc: 'Описание проекта 4...'
     },
     'project5': {
       title: 'Проект 5',
-      images: ['фото5.jpg', 'фото.jpg'],
+    images: ['assets/фото5.jpg', 'assets/фото.jpg'],
       desc: 'Описание проекта 5...'
     },
     'project6': {
       title: 'Проект 6',
-      images: ['фото6.jpg', 'фото.jpg'],
+    images: ['assets/фото6.jpg', 'assets/фото.jpg'],
       desc: 'Описание проекта 6...'
     }
   };
@@ -46,7 +46,7 @@
   function showProject(){
     stageProject.classList.add('active');
     stageList.classList.remove('active');
-    window.scrollTo(0,0);
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     // Получаем id проекта из hash
     const hash = (location.hash||'').replace('#','');
     const match = hash.match(/^\/project\/(.+)$/);
@@ -85,7 +85,7 @@
     // Стандартные секции
     showList();
     document.querySelectorAll('.frame').forEach(f=>f.style.display='');
-    if(hash === '/projects') document.getElementById('frame-projects').scrollIntoView({behavior:'smooth'});
+  if(hash === '/projects') document.getElementById('frame-projects-list').scrollIntoView({behavior:'smooth'});
     else if(hash === '/about') document.getElementById('frame-about').scrollIntoView({behavior:'smooth'});
     else if(hash === '/contacts') document.getElementById('frame-contacts').scrollIntoView({behavior:'smooth'});
   }

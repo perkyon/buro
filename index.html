@@ -18,37 +18,87 @@
   <meta name="twitter:image" content="https://buro.ru/og-image.jpg" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>BURO — пиксель-в-пиксель</title>
+  <title>BURO — мастерская мебели и дизайна</title>
+  <!-- Favicons: provide sized PNGs and SVG, plus an inline SVG data-uri as a safe, non-stretched fallback -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/BURO-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/BURO-16.png" />
+  <link rel="icon" type="image/svg+xml" href="assets/BURO.svg" />
+  <link rel="shortcut icon" href="assets/BURO.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/BURO-180.png" />
+  <!-- Inline SVG fallback to keep aspect ratio and avoid stretched raster icons when files are missing -->
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' preserveAspectRatio='xMidYMid meet'><rect width='100%' height='100%' fill='white'/><text x='50%' y='55%' font-size='28' text-anchor='middle' fill='black' font-family='Arial,Helvetica,sans-serif'>BURO</text></svg>" />
+  <!-- fallback старый логотип -->
+  <link rel="icon" type="image/png" href="src/assets/logo.png" />
   <link rel="stylesheet" href="src/styles/main.css" />
+  <style>
+    /* Revert font-face (use existing site fonts defined in CSS). */
+    /* Keep request button styling */
+    .request-btn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000;
+      color: #fff;
+      border: none;
+      padding: 14px 34px;
+      border-radius: 14px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+      letter-spacing: 0.02em;
+      transition: background 160ms ease, transform 140ms ease, box-shadow 160ms ease;
+    }
+    .request-btn:hover {
+      background: #222;
+      transform: translateX(-50%) scale(0.98);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+    }
+  /* Slightly larger footer and docs bar */
+  #site-footer { padding: 6px 0; }
+  #docs-bar { padding: 6px 0; }
+    /* Smaller footer icon containers */
+    .footer-link { width:36px !important; height:36px !important; line-height:36px !important; margin-right:8px !important; }
+    .footer-link img { width:32px !important; height:32px !important; }
+  </style>
 </head>
 <body>
+<!-- dev logging removed (silent in production) -->
 <!-- Модальное окно заявки -->
-<div id="modal-request" class="modal-fade" style="position:fixed;z-index:1002;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);align-items:center;justify-content:center;">
+<div id="modal-request" class="modal-fade" style="display:none;position:fixed;z-index:1002;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);align-items:center;justify-content:center;">
   <div style="background:#fff;padding:40px 30px 30px 30px;max-width:400px;width:90vw;max-height:90vh;overflow-y:auto;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
     <div style="font-size:1.5em;font-weight:700;margin-bottom:10px;">Оставить заявку</div>
     <div style="font-size:1em;color:#555;margin-bottom:18px;">Выберите удобный способ связи или заполните форму ниже:</div>
     <div style="display:flex;gap:10px;margin-bottom:18px;">
-  <a href="mailto:sales@burodsgn.ru" target="_blank" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">Email</a>
-  <a href="https://t.me/burodsgn" target="_blank" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">Telegram</a>
-  <a href="https://wa.me/79952025404" target="_blank" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">WhatsApp</a>
+  <a href="mailto:sales@burodsgn.ru" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">Email</a>
+  <a href="https://t.me/burodsgn" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">Telegram</a>
+  <a href="https://wa.me/79952025404" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">WhatsApp</a>
     </div>
     <form id="request-form">
-  <input type="text" name="name" placeholder="Ваше имя" required style="width:100%;margin-bottom:10px;padding:10px;border-radius:6px;border:1px solid #ccc;" />
-  <input type="tel" name="phone" placeholder="Телефон" style="width:100%;margin-bottom:10px;padding:10px;border-radius:6px;border:1px solid #ccc;" />
-  <textarea name="comment" placeholder="Комментарий или вопрос" style="width:100%;margin-bottom:10px;padding:10px;border-radius:6px;border:1px solid #ccc;resize:vertical;"></textarea>
+  <label style="display:block;width:100%;margin-bottom:10px;font-size:0.9em;color:#222">Ваше имя
+    <input type="text" name="name" placeholder="Ваше имя" required style="width:100%;margin-top:6px;padding:10px;border-radius:6px;border:1px solid #ccc;" />
+  </label>
+  <label style="display:block;width:100%;margin-bottom:10px;font-size:0.9em;color:#222">Email (опционально)
+    <input type="email" name="email" placeholder="email@domain.ru" style="width:100%;margin-top:6px;padding:10px;border-radius:6px;border:1px solid #ccc;" />
+  </label>
+  <label style="display:block;width:100%;margin-bottom:10px;font-size:0.9em;color:#222">Телефон
+    <input type="tel" name="phone" placeholder="Телефон" required pattern="[0-9+()\-\s]{6,}" style="width:100%;margin-top:6px;padding:10px;border-radius:6px;border:1px solid #ccc;" />
+  </label>
+  <label style="display:block;width:100%;margin-bottom:10px;font-size:0.9em;color:#222">Комментарий
+    <textarea name="comment" placeholder="Комментарий или вопрос" style="width:100%;margin-top:6px;padding:10px;border-radius:6px;border:1px solid #ccc;resize:vertical;"></textarea>
+  </label>
   <button type="submit" style="width:100%;padding:12px 0;background:#333;color:#fff;border:none;border-radius:8px;font-size:1em;font-weight:600;cursor:pointer;">Отправить</button>
     </form>
     <div id="request-success" style="display:none;color:green;font-weight:500;margin-top:10px;text-align:center;">Спасибо! Ваша заявка отправлена.</div>
     <button id="modal-request-close" style="position:absolute;top:18px;right:18px;font-size:1.2em;background:none;border:none;cursor:pointer;">✕</button>
   </div>
 </div>
-<!-- Модальное окно для фото -->
-<div id="modal-img" class="modal-fade" style="position:fixed;z-index:1001;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;">
-  <img id="modal-img-src" src="" alt="Фото" style="max-width:90vw;max-height:90vh;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);background:#fff;" />
-  <button id="modal-img-close" style="position:absolute;top:30px;right:40px;font-size:2em;background:none;border:none;color:#fff;cursor:pointer;">✕</button>
+<!-- Унифицированный модал для просмотров изображений (использует src/js/modal.js) -->
+<div class="project-modal" role="dialog" aria-hidden="true" style="display:none;">
+  <img class="project-modal__img" src="" alt="" />
+  <button class="project-modal__close" aria-label="Закрыть модальное окно">✕</button>
 </div>
 <!-- Модальное окно для документов -->
-<div id="modal-doc" class="modal-fade" style="position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);align-items:center;justify-content:center;">
+<div id="modal-doc" class="modal-fade" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);align-items:center;justify-content:center;">
   <div style="background:#fff;padding:40px 30px 30px 30px;max-width:700px;width:90vw;max-height:80vh;overflow-y:auto;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
     <div id="modal-doc-title" style="font-size:2em;font-weight:700;margin-bottom:20px;"></div>
     <div id="modal-doc-text" style="font-size:1em;line-height:1.7;color:#333;"></div>
@@ -62,65 +112,87 @@
 
     <!-- HERO 1152x700 -->
     <section id="frame-hero" class="frame">
-      <h1 class="font-pathway" style="left:166px;top:185px;position:absolute;color:#000;font-size:300px;font-weight:400;margin:0;">BURO</h1>
+      <h1 class="font-pathway" style="left:166px;top:185px;position:absolute;color:#000000;font-size:300px;font-weight:400;margin:0;">BURO</h1>
       <div class="font-neutral b click" style="width:115px;height:13px;left:652px;top:34px;position:absolute;text-align:center;font-size:18px" data-go="#/contacts">Контакты</div>
       <div class="font-neutral b click" style="width:114px;height:13px;left:504px;top:34px;position:absolute;text-align:center;font-size:18px" data-go="#/projects">Проекты</div>
       <div class="font-neutral b click" style="width:115px;height:13px;left:389px;top:34px;position:absolute;text-align:center;font-size:18px" data-go="#/about">О нас</div>
     </section>
 
     <!-- ПРОЕКТЫ 1152x700 -->
-    <section id="frame-projects" class="frame">
-      <div class="font-neutral b" style="width:115px;height:28px;left:30px;top:17px;position:absolute;font-size:18px">Проекты</div>
+    <section id="frame-projects-list" class="frame">
+  <div class="font-neutral b"
+       style="width:200px;height:28px;left:30px;top:17px;position:absolute;font-size:18px">
+    Проекты HoReCa
+  </div>
+  <!-- переносим подпись «Проекты дом и офис» ниже, чтобы она была над вторым рядом -->
+  <div class="font-neutral b"
+       style="width:350px;height:28px;left:30px;top:373px;position:absolute;font-size:18px">
+    Проекты дом и офис
+  </div>
 
-      <!-- серые карточки из макета (фоны) -->
-      <div style="width:290px;height:280px;left:30px;top:60px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div style="width:360px;height:280px;left:770px;top:60px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div style="width:360px;height:280px;left:770px;top:380px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div style="width:430px;height:280px;left:330px;top:60px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div style="width:290px;height:280px;left:470px;top:380px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
+  <!-- изображения: каждое ведёт на отдельную страницу проекта -->
+  <img class="shadow-on-hover"
+       onclick="window.location.href='projects/project1.html'"
+       style="cursor:pointer;width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px"
+  src="assets/фото1.jpg"
+       alt="Проект 1 — дизайн‑проект и мебель"/>
 
-      <!-- подпись Surf Coffee -->
-      <div style="width:125px;height:20px;left:112px;top:349px;position:absolute;color:#000;font-size:15px;font-family: 'Neutral Face', Inter, sans-serif;font-weight:400">Surf Coffee</div>
+  <img class="shadow-on-hover"
+       onclick="window.location.href='projects/project2.html'"
+       style="cursor:pointer;width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px"
+  src="assets/фото2.jpg"
+       alt="Проект 2 — индивидуальная мебель"/>
 
-      <!-- изображения по точным координатам (кликабельны) -->
-  <img class="click shadow-on-hover" data-go="#/project/surf-coffee" style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото1.jpg" alt="Surf Coffee — дизайн-проект и мебель"/>
-  <img class="click shadow-on-hover" data-go="#/project/project2" style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото2.jpg" alt="Проект 2 — индивидуальная мебель"/>
-  <img class="click shadow-on-hover" data-go="#/project/project3" style="width:292px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото3.jpg" alt="Проект 3 — дизайн интерьера"/>
-  <img class="click shadow-on-hover" data-go="#/project/project4" style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото4.jpg" alt="Проект 4 — столярные работы"/>
-  <img class="click shadow-on-hover" data-go="#/project/project5" style="width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="фото5.jpg" alt="Проект 5 — мебель на заказ"/>
-  <img class="click shadow-on-hover" data-go="#/project/project6" style="width:430px;height:280px;left:30px;top:380px;position:absolute;border-radius:10px" src="фото6.jpg" alt="Проект 6 — дизайн и производство"/>
-    </section>
+  <img class="shadow-on-hover"
+       onclick="window.location.href='projects/project3.html'"
+       style="cursor:pointer;width:292px;height:280px;left:470px;top:416px;position:absolute;border-radius:10px"
+  src="assets/фото3.jpg"
+       alt="Проект 3 — дизайн интерьера"/>
+
+  <img class="shadow-on-hover"
+       onclick="window.location.href='projects/project4.html'"
+       style="cursor:pointer;width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px"
+  src="assets/фото4.jpg"
+       alt="Проект 4 — столярные работы"/>
+
+  <img class="shadow-on-hover"
+       onclick="window.location.href='projects/project5.html'"
+       style="cursor:pointer;width:360px;height:280px;left:770px;top:416px;position:absolute;border-radius:10px"
+  src="assets/фото5.jpg"
+       alt="Проект 5 — мебель на заказ"/>
+
+  <img class="shadow-on-hover"
+       onclick="window.location.href='projects/project6.html'"
+       style="cursor:pointer;width:430px;height:280px;left:30px;top:416px;position:absolute;border-radius:10px"
+  src="assets/фото6.jpg"
+       alt="Проект 6 — дизайн и производство"/>
+</section>
 
     <!-- О НАС 1152x700 -->
     <section id="frame-about" class="frame">
       <div class="font-neutral b" style="width:98px;height:28px;left:35px;top:31px;position:absolute;font-size:18px">О нас</div>
-      <img style="width:639px;height:462px;left:495px;top:119px;position:absolute;border-radius:10px" src="фото.jpg" alt="О нас фото"/>
-      <div style="width:432px;height:500px;left:35px;top:105px;position:absolute;color:#4C4D4A;font-size:15px;line-height:1.45">
-        <span style="font-weight:700">Бюро</span><span> — место, где древесина становится историей<br/>Мы думаем о дереве так, как дерево думает о годичных кольцах — медленно, честно, в диалоге с ветрами и влагой. Каждая работа здесь — это сюжет, а каждый сюжет мы рассказываем так, чтобы он жил дольше стружки и лака. <br/><br/>Мы фиксируем рождение предметов: от первой идеи на бумаге до последнего мазка воска — и делимся этими историями, чтобы вы могли заглянуть внутрь процесса и почувствовать дыхание мастерской.<br/>Здесь проходят сольные и групповые экспозиции мастеров столярного дела: от воздушного штапеля до массивных, почти архитектурных конструкций. Свет скользит по волокнам, обнаруживая скрытую географию древесных карт.<br/>Полный цикл: <br/>замысел → чертёж → рез → сборка. Столы с ваискими верстаками, точный инструмент, ленточная пила и фуговальный станок — всё, чтобы идея стала объектом, а стружка — почвой для новой мысли.<br/>Заходите смотреть, трогать, стружить — и находить в тихом скрипе строганой доски свой собственный ритм.</span>
+  <img style="width:639px;height:462px;left:495px;top:119px;position:absolute;border-radius:10px" src="assets/фото.jpg" alt="О нас фото"/>
+      <div style="width:432px;height:500px;left:35px;top:105px;position:absolute;color:#000000;font-size:15px;line-height:1.45">
+        <span style="font-weight:700">Бюро</span><span> — место, где древесина становится историей<br/>Мы думаем о дереве так, как дерево думает о годичных кольцах — медленно, честно, в диалоге с ветрами и влагой. Каждая работа здесь — это сюжет, а каждый сюжет мы рассказываем так, чтобы он жил дольше стружки и лака. <br/><br/>Мы фиксируем рождение предметов: от первой идеи на бумаге до последнего мазка воска — и делимся этими историями, чтобы вы могли заглянуть внутрь процесса и почувствовать дыхание мастерской.<br/>Здесь проходят сольные и групповые экспозиции мастеров столярного дела: от воздушного штапеля до массивных, почти архитектурных конструкций. Свет скользит по волокнам, обнаруживая скрытую географию древесных карт.<br/>Полный цикл: замысел → чертёж → рез → сборка <br/><br> Столы с ваискими верстаками, точный инструмент, ленточная пила и фуговальный станок — всё, чтобы идея стала объектом, а стружка — почвой для новой мысли.<br/>Заходите смотреть, трогать, стружить — и находить в тихом скрипе строганой доски свой собственный ритм.</span>
       </div>
-    </section>
+  </section>
 
     <!-- КОНТАКТЫ 1152x700 -->
     <section id="frame-contacts" class="frame">
       <div class="font-neutral b" style="width:139px;height:28px;left:37px;top:43px;position:absolute;font-size:18px;text-transform:lowercase">контакты</div>
-  <div class="doc-link" data-doc="offer" style="width:392px;left:713px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px;">Публичная оферта</div>
-  <div class="doc-link" data-doc="agreement" style="width:392px;left:418px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px;">Пользовательское соглашение</div>
-  <div class="doc-link" data-doc="privacy" style="width:392px;left:62px;top:671px;position:absolute;text-align:center;color:rgba(76,77,74,.60);font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:700;line-height:14.68px;">Политика конфиденциальности</div>
-      <div style="width:172px;height:39px;left:938px;top:601px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-  <div id="request-btn" style="width:198px;height:55px;left:925px;top:593px;position:absolute;text-align:center;display:flex;align-items:center;justify-content:center;color:#4C4D4A;font-size:15px;font-family:'Neutral Face', Inter, sans-serif;font-weight:400;line-height:15.58px;">Оставить заявку</div>
-
-      <div style="left:164px;top:146px;position:absolute;color:#000;font-size:300px;font-family:'Pathway Extreme', Inter, sans-serif;font-weight:400">BURO</div>
-      <div class="click" data-go="#/contacts" style="left:968px;top:44px;position:absolute;color:#000;font-size:15px;line-height:18.17px">sales@burodsgn.ru</div>
-      <div style="left:479px;top:44px;position:absolute;color:#000;font-size:15px;line-height:18.17px">адрес офиса Дальняя 8к1 </div>
-      <div style="left:452px;top:71px;position:absolute;color:#000;font-size:15px;line-height:18.17px">адрес производства Постовая 55</div>
-      <div style="left:981px;top:71px;position:absolute;color:#000;font-size:15px">+79952025404</div>
-
-      <!-- соц иконки 25x25 -->
-      <img style="width:25px;height:25px;left:37px;top:614px;position:absolute" src="фото.jpg" alt="иконка"/>
-      <img style="width:25px;height:25px;left:81px;top:614px;position:absolute" src="фото.jpg" alt="иконка"/>
-      <img style="width:25px;height:25px;left:125px;top:614px;position:absolute" src="фото.jpg" alt="иконка"/>
-      <img style="width:25px;height:25px;left:171px;top:615px;position:absolute" src="фото.jpg" alt="иконка"/>
-      <img style="width:25px;height:25px;left:214px;top:615px;position:absolute" src="фото.jpg" alt="иконка"/>
+  <div class="font-pathway" style="left:164px;top:200px;position:absolute;color:#000;font-size:300px;font-weight:400">BURO</div>
+  <!-- Кнопка заявки под нижним BURO -->
+  <button id="request-btn" class="request-btn" style="top:600px;">ОСТАВИТЬ ЗАЯВКУ</button>
+      <!-- Контакты: правый верхний блок с email/тел -->
+      <div class="contacts-top-right">
+        <div>sales@burodsgn.ru</div>
+        <div>+79952025404</div>
+      </div>
+      <!-- Центр: адреса над надписью BURO -->
+      <div class="contacts-center-block">
+        <div>адрес офиса Дальняя 8к1</div>
+        <div>адрес производства Постовая 55</div>
+      </div>
     </section>
 
   </div>
@@ -129,17 +201,18 @@
   <div id="stage-project" class="stage">
 
     <!-- ПРОЕКТ/ФОТО 1152x700 -->
-    <section id="frame-project-detail" class="frame">
-      <div style="width:119px;height:23px;left:108px;top:348px;position:absolute;background:#D9D9D9;border-radius:10px"></div>
-      <div class="font-neutral b" style="width:142px;height:28px;left:526px;top:23px;position:absolute;font-size:18px">Surf coffee</div>
+    <section id="frame-projects-project" class="frame">
+  <div class="font-neutral b"
+       style="width:115px;height:28px;position:absolute;top:17px;left:50%;transform:translateX(-50%);font-size:18px">
 
+    Проект 1
+  </div>
+
+  
       <!-- изображения + подписи -->
       <img style="width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="фото1.jpg" alt="Второй этаж"/>
-      <div style="width:99px;height:18px;left:125px;top:350px;position:absolute;color:#000;font-size:15px;font-weight:300">Второй этаж</div>
-
+      <!--div style="width:99px;height:18px;left:125px;top:350px;position:absolute;color:#000;font-size:15px;font-weight:300">Второй этаж</div-->
       <img style="width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="фото2.jpg" alt="Кассовая зона"/>
-      <div style="width:117px;height:18px;left:486px;top:350px;position:absolute;color:#000;font-size:15px;font-weight:300">Кассовая зона</div>
-
       <img style="width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="фото3.jpg" alt="Фото"/>
       <img style="width:430px;height:283px;left:30px;top:377px;position:absolute;border-radius:10px" src="фото4.jpg" alt="Фото"/>
       <img style="width:290px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="фото5.jpg" alt="Фото"/>
@@ -149,7 +222,7 @@
     <!-- ПРОЕКТ/ОПИСАНИЕ 1152x700 -->
     <section id="frame-project-desc" class="frame">
   <div class="font-neutral b" style="width:134px;height:28px;left:35px;top:31px;position:absolute;font-size:18px">описание</div>
-  <div style="width:1069px;left:35px;top:70px;position:absolute;color:#4C4D4A;font-size:15px;line-height:1.55">
+  <div style="width:1069px;left:35px;top:70px;position:absolute;color:#000000;font-size:15px;line-height:1.55">
         <span style="font-weight:700">Задача клиента:<br/><span> 
         <span> Создать функциональную кухню с обеденной зоной, сочетающуюся с открытой гостиной, с максимальным использованием пространства и скрытыми системами хранения.<br/><br/></span>
         <span style="font-weight:700">Решение:<br/></span>
@@ -163,32 +236,179 @@
 
   </div>
 </div>
+  <!-- Чёрный футер -->
+  <footer id="site-footer" style="background:#000;color:#fff;position:relative;padding:6px 0;height:36px;overflow:visible;">
+    <div id="footer-left" style="display:flex;align-items:center;position:absolute;left:28px;top:50%;transform:translateY(-50%);z-index:2;">
+        <!-- SVG иконки помещайте в assets/icons/*.svg и называйте понятно, я подключу их сюда -->
+      </div>
+    <div class="footer-inner" style="max-width:1152px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:36px;padding:0 16px;position:relative;">
+      <div id="footer-center-placeholder"></div>
+      <div id="footer-right"></div>
+    </div>
+  </footer>
+
+  <!-- Документы: отдельная полоса под футером -->
+  <div id="docs-bar" style="background:#000;color:#fff;padding:4px 0;">
+    <div id="docs-inner" style="max-width:1152px;margin:0 auto;display:flex;justify-content:center;gap:36px;font-size:13px;line-height:1;">
+  <a class="doc-link" data-doc="offer" href="javascript:void(0)" role="button" tabindex="0">Публичная оферта</a>
+  <a class="doc-link" data-doc="agreement" href="javascript:void(0)" role="button" tabindex="0">Пользовательское соглашение</a>
+  <a class="doc-link" data-doc="privacy" href="javascript:void(0)" role="button" tabindex="0">Политика конфиденциальности</a>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      // Более надёжный загрузчик иконок: вставляем <img> (лучше работает при file://)
+      var icons = [
+  {key:'instagram', files:['Instagram.svg','instagram.svg']},
+  {key:'telegram', files:['telegram.svg','Telegram.svg']},
+        {key:'whatsapp', files:['WhatsApp.svg','whatsapp.svg']},
+        // файл Vkontak.svg используется вместо "vk.svg"
+        {key:'vk', files:['Vkontak.svg','vkontak.svg','Vk.svg','vk.svg']},
+        {key:'pinterest', files:['Pinterest.svg','pinterest.svg']}
+      ];
+      var container = document.getElementById('footer-left');
+      // ensure container hugs the viewport left edge
+      container.style.left = '8px';
+      container.style.gap = '8px';
+      icons.forEach(function(icon){
+        var anchor = document.createElement('a');
+        // замените ссылки на реальные профили при необходимости
+        var hrefMap = {
+          instagram: 'https://instagram.com/burodsgn',
+          telegram: 'https://t.me/burodsgn',
+          whatsapp: 'https://wa.me/79952025404',
+          vk: 'https://vk.com/burodsgn',
+          pinterest: 'javascript:void(0)'
+        };
+        anchor.href = hrefMap[icon.key] || 'javascript:void(0)';
+        anchor.setAttribute('aria-label', icon.key + ' — BURO');
+  anchor.style.display = 'inline-block';
+  anchor.style.width = '44px';
+  anchor.style.height = '44px';
+  anchor.style.lineHeight = '44px';
+  anchor.style.textAlign = 'center';
+  anchor.style.marginRight = '12px';
+        anchor.className = 'footer-link';
+
+        var img = document.createElement('img');
+  img.alt = icon.key;
+  img.style.width = '40px';
+  img.style.height = '40px';
+  img.style.display = 'block';
+        anchor.appendChild(img);
+        container.appendChild(anchor);
+
+        var i = 0;
+        function tryNext(){
+          if(i >= icon.files.length){
+            // ничего не найдено — для Telegram вставим inline SVG-иконку как запас
+            if(icon.key === 'telegram'){
+              var svg = document.createElement('span');
+              svg.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 4L3 10.5l4.5 1.5L9 18l1.5-3 3.5-2.5L21 4z" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+              svg.style.display = 'inline-block';
+              svg.style.width = '32px';
+              svg.style.height = '32px';
+              // remove img and append svg
+              if(img.parentNode) img.parentNode.removeChild(img);
+              anchor.appendChild(svg);
+              return;
+            }
+            // иначе удаляем контейнер
+            if(anchor.parentNode) anchor.parentNode.removeChild(anchor);
+            return;
+          }
+          img.src = 'assets/' + icon.files[i];
+          img.onload = function(){ /* ok */ };
+          img.onerror = function(){ i++; tryNext(); };
+        }
+        tryNext();
+      });
+    })();
+  </script>
 
 <script src="src/js/main.js"></script>
+<!-- Fallback: если основной скрипт не сработает, показываем stage-list чтобы страница не была пустой -->
+<script>
+  (function(){
+    try {
+      // через короткую задержку дать шанс основному скрипту отработать
+      setTimeout(function(){
+        var stageList = document.getElementById('stage-list');
+        if(stageList && getComputedStyle(stageList).display === 'none'){
+          stageList.style.display = 'block';
+          stageList.classList.add('active');
+        }
+      }, 150);
+    } catch(e){ /* не критично */ }
+  })();
+</script>
 <script>
 // Модальное окно заявки
 function showModal(modalId) {
   var modal = document.getElementById(modalId);
-  modal.classList.add('modal-active');
+  if(!modal) return;
+  // save focus
+  modal.__previousActive = document.activeElement;
   modal.style.display = 'flex';
-  setTimeout(function(){ modal.classList.add('modal-active'); }, 10);
+  document.body.style.overflow = 'hidden';
+  setTimeout(function(){ modal.classList.add('show'); modal.focus && modal.focus(); }, 10);
+  // attach a capture-phase listener that closes the modal when clicking outside its inner container
+  try{
+    var closeOnOutside = function(evt){
+      var t = evt.target;
+      // if modal has an inner element (the white box), treat clicks outside it as overlay clicks
+      var inner = modal.firstElementChild;
+      if(!inner) return;
+      if(t === modal || !inner.contains(t)){
+        // close immediately
+        hideModal(modalId);
+      }
+    };
+    modal.__closeOnOutside = closeOnOutside;
+    document.addEventListener('click', closeOnOutside, true);
+  }catch(e){/* ignore */}
 }
 function hideModal(modalId) {
   var modal = document.getElementById(modalId);
-  modal.classList.remove('modal-active');
-  setTimeout(function(){ modal.style.display = 'none'; }, 250);
+  if(!modal) return;
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+  // remove capture listener added on show
+  try{ if(modal.__closeOnOutside) document.removeEventListener('click', modal.__closeOnOutside, true); }catch(e){}
+  setTimeout(function(){ modal.style.display = 'none'; if(modal.__previousActive) modal.__previousActive.focus(); }, 250);
 }
 // Открытие заявки
 document.getElementById('request-btn').onclick = function() {
   showModal('modal-request');
   document.getElementById('request-success').style.display = 'none';
 };
-document.getElementById('modal-request-close').onclick = function() {
-  hideModal('modal-request');
+// Открытие заявки
+document.getElementById('request-btn').onclick = function() {
+  showModal('modal-request');
+  document.getElementById('request-success').style.display = 'none';
 };
-document.getElementById('modal-request').addEventListener('click', function(e) {
-  if (e.target === this) hideModal('modal-request');
-});
+
+// Ensure modal-request close button and overlay reliably close the modal
+(function(){
+  var modalReq = document.getElementById('modal-request');
+  var modalReqClose = document.getElementById('modal-request-close');
+  if(modalReqClose){
+    modalReqClose.addEventListener('click', function(e){
+      e.stopPropagation();
+      devLog('modal-request close clicked');
+      hideModal('modal-request');
+    });
+  }
+  if(modalReq){
+    modalReq.addEventListener('click', function(e){
+      if(e.target === modalReq){
+        devLog('modal-request overlay clicked');
+        hideModal('modal-request');
+      }
+    });
+  }
+})();
 document.getElementById('request-form').onsubmit = function(e) {
   e.preventDefault();
   document.getElementById('request-success').style.display = 'block';
@@ -203,36 +423,12 @@ document.addEventListener('keydown', function(e){
   if(e.key === 'Escape') {
     ['modal-request','modal-img','modal-doc'].forEach(function(id){
       var modal = document.getElementById(id);
-      if(modal && modal.style.display === 'flex') hideModal(id);
+      if(modal && modal.classList.contains('show')) hideModal(id);
     });
   }
 });
 </script>
-<script>
-// Модальное окно для фото в проекте
-function enableProjectImageModal() {
-  document.querySelectorAll('#stage-project .frame img').forEach(img => {
-    img.style.cursor = 'zoom-in';
-    img.addEventListener('click', function(e) {
-      document.getElementById('modal-img-src').src = this.src;
-      showModal('modal-img');
-    });
-  });
-}
-function closeModalImg() {
-  hideModal('modal-img');
-  document.getElementById('modal-img-src').src = '';
-}
-document.getElementById('modal-img-close').onclick = closeModalImg;
-document.getElementById('modal-img').addEventListener('click', function(e) {
-  if (e.target === this || e.target === document.getElementById('modal-img-src')) {
-    closeModalImg();
-  }
-});
-window.addEventListener('hashchange', function(){
-  if(location.hash.startsWith('#/project/')) enableProjectImageModal();
-});
-</script>
+<script src="src/js/modal.js"></script>
 <script>
 // Модальное окно для документов
 const docTexts = {
@@ -250,17 +446,68 @@ const docTexts = {
   }
 };
 document.querySelectorAll('.doc-link').forEach(link => {
-  link.addEventListener('click', function() {
-    const doc = this.getAttribute('data-doc');
-    if (!docTexts[doc]) return;
-    document.getElementById('modal-doc-title').textContent = docTexts[doc].title;
-    document.getElementById('modal-doc-text').textContent = docTexts[doc].text;
-    showModal('modal-doc');
+  link.addEventListener('click', function(e) {
+    try {
+      // Prevent default anchor navigation which jumps to top (href="#")
+      if (e && e.preventDefault) e.preventDefault();
+      devLog('doc-link click: ' + this.getAttribute('data-doc'));
+      const doc = this.getAttribute('data-doc');
+      if (!docTexts[doc]) {
+        devLog('doc not found: ' + doc);
+        return;
+      }
+      document.getElementById('modal-doc-title').textContent = docTexts[doc].title;
+      document.getElementById('modal-doc-text').textContent = docTexts[doc].text;
+      showModal('modal-doc');
+    } catch (err) {
+      devLog('error in doc-link click: ' + (err && err.message));
+      console.error(err);
+    }
+  });
+  // keyboard support: open on Enter or Space
+  link.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      this.click();
+    }
   });
 });
-document.getElementById('modal-doc-close').onclick = function() {
-  hideModal('modal-doc');
-};
+// Ensure modal-doc close button and overlay reliably close the modal
+(function(){
+  var modalDoc = document.getElementById('modal-doc');
+  var modalDocClose = document.getElementById('modal-doc-close');
+  if(modalDocClose){
+    modalDocClose.addEventListener('click', function(e){
+      e.stopPropagation();
+      devLog('modal-doc close clicked');
+      hideModal('modal-doc');
+    });
+  }
+  if(modalDoc){
+    // overlay click
+    modalDoc.addEventListener('click', function(e){
+      if(e.target === modalDoc){
+        devLog('modal-doc overlay clicked');
+        hideModal('modal-doc');
+      }
+    });
+  }
+})();
+
+// Small dev logger that shows messages in the floating box
+function devLog(msg){
+  // no-op in production build: keep function to avoid errors from existing calls
+  try{ /* intentionally empty: dev logging disabled */ }catch(e){}
+}
+// Reattach modal close handlers (defensive): clear old onclick and set reliable listeners
+(function(){
+  try{
+    var reqClose = document.getElementById('modal-request-close');
+    var docClose = document.getElementById('modal-doc-close');
+    if(reqClose){ reqClose.onclick = null; reqClose.addEventListener('click', function(e){ e.stopPropagation(); devLog('modal-request close final'); hideModal('modal-request'); }); }
+    if(docClose){ docClose.onclick = null; docClose.addEventListener('click', function(e){ e.stopPropagation(); devLog('modal-doc close final'); hideModal('modal-doc'); }); }
+  }catch(e){ console.error('reattach handlers err', e); }
+})();
 </script>
 </body>
 </html>
