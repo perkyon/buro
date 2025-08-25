@@ -46,6 +46,8 @@ body{font-family: Inter, Arial, sans-serif}
 }
 .modal-fade{opacity:0;visibility:hidden;transform:translateY(6px);transition:all .18s ease}
 .modal-fade.show{opacity:1;visibility:visible;transform:none}
+/* Ensure visible modals accept pointer events so inner controls are interactive */
+.modal-fade.show{ pointer-events: auto; }
 
 /* Project modal shared styles */
 .project-modal{display:none;position:fixed;z-index:1001;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);align-items:center;justify-content:center}

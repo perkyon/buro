@@ -366,7 +366,10 @@ function showModal(modalId) {
       }
     };
     modal.__closeOnOutside = closeOnOutside;
-    document.addEventListener('click', closeOnOutside, true);
+    // attach on next tick so we don't catch the same click that opened the modal
+    setTimeout(function(){
+      try{ document.addEventListener('click', closeOnOutside, true); }catch(e){}
+    }, 0);
   }catch(e){/* ignore */}
 }
 function hideModal(modalId) {
