@@ -1,3 +1,90 @@
+// --- Обработчики для выбора категории заявки ---
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.category-option').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.category-option').forEach(function(el){
+        el.setAttribute('aria-pressed', 'false');
+        el.style.background = '#f5f5f5';
+      });
+      btn.setAttribute('aria-pressed','true');
+      btn.style.background = '#e9e9ff';
+      document.getElementById('request-category').value = btn.dataset.category;
+    });
+  });
+});
+// --- Восстановление обработчиков для кнопок связи в модальном окне заявки ---
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.contact-option').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.contact-option').forEach(function(el){
+        el.setAttribute('aria-pressed', 'false');
+        el.style.background = '#f5f5f5';
+      });
+      btn.setAttribute('aria-pressed','true');
+      btn.style.background = '#e9e9ff';
+      // Действие по кнопке
+      if (btn.dataset.contact === 'email') {
+        window.open('mailto:sales@burodsgn.ru');
+      }
+      if (btn.dataset.contact === 'telegram') {
+        window.open('https://t.me/burodsgn');
+      }
+      if (btn.dataset.contact === 'whatsapp') {
+        window.open('https://wa.me/79952025404');
+      }
+    });
+  });
+});
+
+// --- Восстановление загрузки иконок соцсетей в футере ---
+document.addEventListener('DOMContentLoaded', function() {
+  var icons = [
+    {key:'instagram', files:['Instagram.svg','instagram.svg'], href:'https://instagram.com/burodsgn'},
+    {key:'telegram', files:['telegram.svg','Telegram.svg'], href:'https://t.me/burodsgn'},
+    {key:'whatsapp', files:['WhatsApp.svg','whatsapp.svg'], href:'https://wa.me/79952025404'},
+    {key:'vk', files:['Vkontak.svg','vkontak.svg','Vk.svg','vk.svg'], href:'https://vk.com/burodsgn'},
+    {key:'pinterest', files:['Pinterest.svg','pinterest.svg'], href:'javascript:void(0)'}
+  ];
+  var container = document.getElementById('footer-left');
+  if (!container) return;
+  container.style.left = '8px';
+  container.style.gap = '8px';
+  icons.forEach(function(icon){
+    var anchor = document.createElement('a');
+    anchor.href = icon.href;
+    anchor.setAttribute('aria-label', icon.key + ' — BURO');
+    anchor.className = 'footer-link';
+    var img = document.createElement('img');
+    img.alt = icon.key;
+    img.style.width = '40px';
+    img.style.height = '40px';
+    img.style.display = 'block';
+    anchor.appendChild(img);
+    container.appendChild(anchor);
+    var i = 0;
+    function tryNext(){
+      if(i >= icon.files.length){
+        // Telegram fallback SVG
+        if(icon.key === 'telegram'){
+          var svg = document.createElement('span');
+          svg.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 4L3 10.5l4.5 1.5L9 18l1.5-3 3.5-2.5L21 4z" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+          svg.style.display = 'inline-block';
+          svg.style.width = '32px';
+          svg.style.height = '32px';
+          if(img.parentNode) img.parentNode.removeChild(img);
+          anchor.appendChild(svg);
+          return;
+        }
+        if(anchor.parentNode) anchor.parentNode.removeChild(anchor);
+        return;
+      }
+      img.src = 'assets/' + icon.files[i];
+      img.onload = function(){ /* ok */ };
+      img.onerror = function(){ i++; tryNext(); };
+    }
+    tryNext();
+  });
+});
 // main.js — скрипты для публичной части
 (function(){
   'use strict';

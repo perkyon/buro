@@ -30,50 +30,27 @@
   <!-- fallback старый логотип -->
   <link rel="icon" type="image/png" href="src/assets/logo.png" />
   <link rel="stylesheet" href="src/styles/main.css" />
-  <style>
-    /* Revert font-face (use existing site fonts defined in CSS). */
-    /* Keep request button styling */
-    .request-btn {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #000;
-      color: #fff;
-      border: none;
-      padding: 14px 34px;
-      border-radius: 14px;
-      font-size: 18px;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-      letter-spacing: 0.02em;
-      transition: background 160ms ease, transform 140ms ease, box-shadow 160ms ease;
-    }
-    .request-btn:hover {
-      background: #222;
-      transform: translateX(-50%) scale(0.98);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.22);
-    }
-  /* Slightly larger footer and docs bar */
-  #site-footer { padding: 6px 0; }
-  #docs-bar { padding: 6px 0; }
-    /* Smaller footer icon containers */
-    .footer-link { width:36px !important; height:36px !important; line-height:36px !important; margin-right:8px !important; }
-    .footer-link img { width:32px !important; height:32px !important; }
-  </style>
+  <!-- Стили перенесены в src/styles/main.css -->
 </head>
 <body>
 <!-- dev logging removed (silent in production) -->
 <!-- Модальное окно заявки -->
-<div id="modal-request" class="modal-fade" style="display:none;position:fixed;z-index:1002;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);align-items:center;justify-content:center;">
-  <div style="background:#fff;padding:40px 30px 30px 30px;max-width:400px;width:90vw;max-height:90vh;overflow-y:auto;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
-    <div style="font-size:1.5em;font-weight:700;margin-bottom:10px;">Оставить заявку</div>
+<div id="modal-request" class="modal-fade" role="dialog" aria-modal="true" aria-labelledby="modal-request-title" style="display:none;position:fixed;z-index:1002;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);">
+  <div class="modal-inner" style="background:#fff;padding:34px 30px 30px 30px;max-width:520px;width:92vw;max-height:90vh;overflow-y:auto;border-radius:14px;box-shadow:0 12px 36px rgba(0,0,0,0.22);">
+    <h2 id="modal-request-title" style="font-size:28px;font-weight:800;margin:0 0 10px 0;">Оставить заявку</h2>
     <div style="font-size:1em;color:#555;margin-bottom:18px;">Выберите удобный способ связи или заполните форму ниже:</div>
-    <div style="display:flex;gap:10px;margin-bottom:18px;">
-  <a href="mailto:sales@burodsgn.ru" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">Email</a>
-  <a href="https://t.me/burodsgn" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">Telegram</a>
-  <a href="https://wa.me/79952025404" target="_blank" rel="noopener" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;text-decoration:none;color:#333;">WhatsApp</a>
+    <div style="display:flex;gap:12px;margin-bottom:18px;">
+      <button type="button" class="contact-option" data-contact="email" aria-pressed="false" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;border:1px solid #eee;color:#222;cursor:pointer;">Email</button>
+      <button type="button" class="contact-option" data-contact="telegram" aria-pressed="false" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;border:1px solid #eee;color:#222;cursor:pointer;">Telegram</button>
+      <button type="button" class="contact-option" data-contact="whatsapp" aria-pressed="false" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;border:1px solid #eee;color:#222;cursor:pointer;">WhatsApp</button>
+    </div>
+    <div style="font-size:1em;color:#555;margin-bottom:8px;text-align:left;">Выберите категорию, которая вас интересует:</div>
+    <div style="margin-bottom:18px;display:flex;gap:12px;justify-content:center;">
+      <button type="button" class="category-option" data-category="HoReCa" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;border:1px solid #eee;color:#222;cursor:pointer;">HoReCa</button>
+      <button type="button" class="category-option" data-category="Дом и офис" style="flex:1;text-align:center;padding:10px 0;background:#f5f5f5;border-radius:8px;border:1px solid #eee;color:#222;cursor:pointer;">Мебель дом и офис</button>
     </div>
     <form id="request-form">
+  <input type="hidden" name="category" id="request-category" value="" />
   <label style="display:block;width:100%;margin-bottom:10px;font-size:0.9em;color:#222">Ваше имя
     <input type="text" name="name" placeholder="Ваше имя" required style="width:100%;margin-top:6px;padding:10px;border-radius:6px;border:1px solid #ccc;" />
   </label>
@@ -92,18 +69,26 @@
     <button id="modal-request-close" style="position:absolute;top:18px;right:18px;font-size:1.2em;background:none;border:none;cursor:pointer;">✕</button>
   </div>
 </div>
+  <!-- JS вынесен в src/js/main.js и src/js/modal.js -->
 <!-- Унифицированный модал для просмотров изображений (использует src/js/modal.js) -->
 <div class="project-modal" role="dialog" aria-hidden="true" style="display:none;">
   <img class="project-modal__img" src="" alt="" />
   <button class="project-modal__close" aria-label="Закрыть модальное окно">✕</button>
 </div>
 <!-- Модальное окно для документов -->
-<div id="modal-doc" class="modal-fade" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);align-items:center;justify-content:center;">
-  <div style="background:#fff;padding:40px 30px 30px 30px;max-width:700px;width:90vw;max-height:80vh;overflow-y:auto;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.18);position:relative;">
-    <div id="modal-doc-title" style="font-size:2em;font-weight:700;margin-bottom:20px;"></div>
-    <div id="modal-doc-text" style="font-size:1em;line-height:1.7;color:#333;"></div>
-    <button id="modal-doc-close" style="position:absolute;top:18px;right:18px;font-size:1.2em;background:none;border:none;cursor:pointer;">✕</button>
-  </div>
+<div id="modal-doc" class="modal-fade" style="display:none;position:fixed;z-index:1000;left:0;top:0;width:100vw;height:100vh;background:rgba(0,0,0,0.35);align-items:flex-start;justify-content:center;padding-top:24px;">
+    <div style="background:#fff;padding:22px 24px 20px 24px;max-width:820px;width:94vw;max-height:82vh;overflow-y:auto;border-radius:12px;box-shadow:0 12px 36px rgba(0,0,0,0.22);position:relative;">
+      <div class="doc-toolbar" role="toolbar" aria-label="Документы">
+        <div id="modal-doc-updated" class="doc-updated" aria-hidden="true"></div>
+        <div class="doc-toolbar-buttons">
+          <button id="modal-doc-print" type="button">Печать</button>
+          <button id="modal-doc-download" type="button">Скачать</button>
+        </div>
+      </div>
+      <div id="modal-doc-title" style="font-size:1.5em;font-weight:700;margin:0 0 12px 0;"></div>
+      <div id="modal-doc-text" class="doc-content" style="font-size:1em;line-height:1.7;color:#333;"></div>
+      <!-- Кнопка закрытия убрана -->
+    </div>
 </div>
 <div class="wrap">
 
@@ -183,10 +168,10 @@
   <div class="font-pathway" style="left:164px;top:200px;position:absolute;color:#000;font-size:300px;font-weight:400">BURO</div>
   <!-- Кнопка заявки под нижним BURO -->
   <button id="request-btn" class="request-btn" style="top:600px;">ОСТАВИТЬ ЗАЯВКУ</button>
-      <!-- Контакты: правый верхний блок с email/тел -->
-      <div class="contacts-top-right">
-        <div>sales@burodsgn.ru</div>
-        <div>+79952025404</div>
+      <!-- Новый отдельный блок для email и телефона -->
+      <div class="contacts-info">
+        sales@burodsgn.ru<br>
+        +79952025404
       </div>
       <!-- Центр: адреса над надписью BURO -->
       <div class="contacts-center-block">
@@ -256,93 +241,11 @@
     </div>
   </div>
 
-  <script>
-    (function(){
-      // Более надёжный загрузчик иконок: вставляем <img> (лучше работает при file://)
-      var icons = [
-  {key:'instagram', files:['Instagram.svg','instagram.svg']},
-  {key:'telegram', files:['telegram.svg','Telegram.svg']},
-        {key:'whatsapp', files:['WhatsApp.svg','whatsapp.svg']},
-        // файл Vkontak.svg используется вместо "vk.svg"
-        {key:'vk', files:['Vkontak.svg','vkontak.svg','Vk.svg','vk.svg']},
-        {key:'pinterest', files:['Pinterest.svg','pinterest.svg']}
-      ];
-      var container = document.getElementById('footer-left');
-      // ensure container hugs the viewport left edge
-      container.style.left = '8px';
-      container.style.gap = '8px';
-      icons.forEach(function(icon){
-        var anchor = document.createElement('a');
-        // замените ссылки на реальные профили при необходимости
-        var hrefMap = {
-          instagram: 'https://instagram.com/burodsgn',
-          telegram: 'https://t.me/burodsgn',
-          whatsapp: 'https://wa.me/79952025404',
-          vk: 'https://vk.com/burodsgn',
-          pinterest: 'javascript:void(0)'
-        };
-        anchor.href = hrefMap[icon.key] || 'javascript:void(0)';
-        anchor.setAttribute('aria-label', icon.key + ' — BURO');
-  anchor.style.display = 'inline-block';
-  anchor.style.width = '44px';
-  anchor.style.height = '44px';
-  anchor.style.lineHeight = '44px';
-  anchor.style.textAlign = 'center';
-  anchor.style.marginRight = '12px';
-        anchor.className = 'footer-link';
-
-        var img = document.createElement('img');
-  img.alt = icon.key;
-  img.style.width = '40px';
-  img.style.height = '40px';
-  img.style.display = 'block';
-        anchor.appendChild(img);
-        container.appendChild(anchor);
-
-        var i = 0;
-        function tryNext(){
-          if(i >= icon.files.length){
-            // ничего не найдено — для Telegram вставим inline SVG-иконку как запас
-            if(icon.key === 'telegram'){
-              var svg = document.createElement('span');
-              svg.innerHTML = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 4L3 10.5l4.5 1.5L9 18l1.5-3 3.5-2.5L21 4z" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-              svg.style.display = 'inline-block';
-              svg.style.width = '32px';
-              svg.style.height = '32px';
-              // remove img and append svg
-              if(img.parentNode) img.parentNode.removeChild(img);
-              anchor.appendChild(svg);
-              return;
-            }
-            // иначе удаляем контейнер
-            if(anchor.parentNode) anchor.parentNode.removeChild(anchor);
-            return;
-          }
-          img.src = 'assets/' + icon.files[i];
-          img.onload = function(){ /* ok */ };
-          img.onerror = function(){ i++; tryNext(); };
-        }
-        tryNext();
-      });
-    })();
-  </script>
+  <!-- Загрузчик иконок вынесен в src/js/main.js -->
 
 <script src="src/js/main.js"></script>
 <!-- Fallback: если основной скрипт не сработает, показываем stage-list чтобы страница не была пустой -->
-<script>
-  (function(){
-    try {
-      // через короткую задержку дать шанс основному скрипту отработать
-      setTimeout(function(){
-        var stageList = document.getElementById('stage-list');
-        if(stageList && getComputedStyle(stageList).display === 'none'){
-          stageList.style.display = 'block';
-          stageList.classList.add('active');
-        }
-      }, 150);
-    } catch(e){ /* не критично */ }
-  })();
-</script>
+<!-- Fallback для stage-list реализован в src/js/main.js -->
 <script>
 // Модальное окно заявки
 function showModal(modalId) {
@@ -437,15 +340,15 @@ document.addEventListener('keydown', function(e){
 const docTexts = {
   offer: {
     title: 'Публичная оферта',
-    text: `Настоящая публичная оферта является официальным предложением ООО "Бюро" любому лицу заключить договор на оказание услуг. Оферта определяет условия предоставления услуг, права и обязанности сторон, порядок оплаты, ответственность и иные положения. Принимая условия оферты, вы соглашаетесь с правилами работы бюро.`
+    text: `1. Общие положения\n\n1.1. Настоящая Публичная оферта (далее — Оферта) является официальным предложением BURO (далее — Исполнитель) и содержит все существенные условия договора на оказание услуг по дизайну, изготовлению, поставке и/или монтажу мебели и предметов интерьера.\n\n1.2. Оферта является публичной в порядке, установленном ст. 437 ГК РФ. Акцептом Оферты считается оформление заявки на сайте https://perkyon.github.io/buro, направленное сообщение в мессенджерах, подтверждение по электронной почте или иное однозначное волеизъявление Заказчика, влекущее принятие условий Оферты.\n\n2. Предмет договора\n\n2.1. По настоящей Оферте Исполнитель обязуется по заданию Заказчика выполнить работы и/или поставить продукцию, а Заказчик — принять и оплатить их на условиях, изложенных в Оферте и в согласованной спецификации.\n\n3. Порядок заключения договора\n\n3.1. Заказ оформляется через форму на Сайте, по телефону или в мессенджерах. Заказчик обязан предоставить достоверную информацию, необходимую для выполнения заказа (размеры, материалы, сроки и пр.).\n\n3.2. Договор считается заключённым с момента акцепта Оферты и подтверждения Исполнителем условий заказа (стоимость, срок, техническое задание).\n\n4. Стоимость и порядок оплаты\n\n4.1. Стоимость услуг и изделий определяется индивидуально и подтверждается в согласованной спецификации.\n\n4.2. Оплата осуществляется в рублях банковским переводом, по реквизитам, направленным Заказчику, либо иным согласованным способом.\n\n4.3. Частичная предоплата может быть оговорена отдельно (например, до 70% стоимости). Остаток оплачивается по окончании работ либо в порядке, согласованном сторонами.\n\n5. Сроки исполнения\n\n5.1. Сроки выполнения заказа определяются индивидуально и подтверждаются Исполнителем. При наступлении форс‑мажорных обстоятельств сроки могут быть перенесены с уведомлением Заказчика.\n\n6. Гарантии и возврат\n\n6.1. На изготовленную продукцию предоставляется гарантия в течение 12 месяцев с момента передачи, если иное не согласовано сторонами.\n\n6.2. Возврат, обмен и устранение недостатков осуществляются в порядке, установленном действующим законодательством РФ.\n\n7. Ответственность сторон\n\n7.1. Стороны несут ответственность за неисполнение или ненадлежащее исполнение обязательств в соответствии с законодательством РФ. Исполнитель не несёт ответственность за дефекты, возникшие по вине Заказчика (неправильная установка, нарушение условий эксплуатации и пр.).\n\n8. Конфиденциальность\n\n8.1. Персональные данные Заказчика обрабатываются в соответствии с Политикой конфиденциальности, размещённой на Сайте.\n\n9. Прочие условия\n\n9.1. Оферта действует бессрочно. Исполнитель вправе вносить изменения в текст Оферты, публикуя актуальную редакцию на Сайте.\n\n9.2. К отношениям сторон применяется законодательство РФ.\n` 
   },
   agreement: {
     title: 'Пользовательское соглашение',
-    text: `Пользовательское соглашение регулирует правила пользования сайтом buro, права и обязанности пользователя, ограничения, ответственность и другие аспекты взаимодействия с сайтом и сервисами бюро. Используя сайт, вы подтверждаете согласие с настоящим соглашением.`
+    text: `1. Общие положения\n\n1.1. Настоящее Пользовательское соглашение (далее — Соглашение) устанавливает правила использования сайта https://perkyon.github.io/buro (далее — Сайт).\n\n1.2. Используя Сайт, посетитель подтверждает согласие с условиями настоящего Соглашения.\n\n2. Права и обязанности сторон\n\n2.1. Пользователь обязуется не совершать действий, нарушающих действующее законодательство РФ, права третьих лиц, а также не размещать материалы, содержащие вирусы, спам, оскорбления или противоправный контент.\n\n2.2. Администрация Сайта вправе ограничить или приостановить доступ Пользователя при нарушении условий Соглашения, а также удалять материалы, нарушающие правила.\n\n3. Интеллектуальная собственность\n\n3.1. Все материалы, дизайн, тексты и изображения, размещённые на Сайте, являются объектами авторского права и принадлежат BURO или третьим правообладателям.\n\n3.2. Копирование, распространение и использование материалов Сайта допускаются только с письменного согласия правообладателя, за исключением случаев, прямо предусмотренных законодательством РФ.\n\n4. Ограничение ответственности\n\n4.1. Сайт предоставляется «как есть». Администрация не гарантирует отсутствие технических ошибок, сбоев, перерывов в работе сервиса или полной совместимости с любыми устройствами и браузерами.\n\n4.2. Администрация не несёт ответственности за косвенный ущерб, упущенную выгоду или иные последствия, возникшие в результате использования Сайта.\n\n5. Заключительные положения\n\n5.1. Администрация оставляет за собой право вносить изменения в Соглашение. Актуальная версия публикуется на Сайте.\n\n5.2. Все споры, не урегулированные мирным путём, подлежат рассмотрению в соответствии с законодательством РФ.`
   },
   privacy: {
     title: 'Политика конфиденциальности',
-    text: `В политике конфиденциальности описано, какие данные собираются, как они используются, права пользователя на свои данные, а также меры по их защите. Мы соблюдаем требования законодательства РФ и используем современные методы защиты информации.`
+    text: `1. Общие положения\n\n1.1. Настоящая Политика конфиденциальности описывает принципы обработки и защиты персональных данных пользователей сайта https://perkyon.github.io/buro (далее — Сайт) компанией BURO (далее — Оператор). Политика разработана в соответствии с Федеральным законом от 27.07.2006 №152‑ФЗ «О персональных данных».\n\n2. Какие данные мы собираем\n\n2.1. При взаимодействии с Сайтом Оператор может собирать следующие персональные данные: имя, контактный телефон, адрес электронной почты, содержимое заявки, файлы, IP‑адрес, технические данные о браузере и устройстве, cookie и аналогичные технологии.\n\n3. Цели обработки данных\n\n3.1. Персональные данные обрабатываются в целях:\n— оформления и обработки заказов;\n— связи с пользователем по вопросам заказа и поддержки;\n— выставления счетов и ведения бухгалтерского учёта;\n— улучшения качества обслуживания и аналитики работы Сайта;\n— рассылок при наличии согласия пользователя.\n\n4. Правовые основания обработки\n\n4.1. Правовыми основаниями обработки персональных данных являются: согласие пользователя, исполнение договора, законные интересы Оператора и исполнение требований законодательства.\n\n5. Передача и хранение данных\n\n5.1. Оператор хранит персональные данные на защищённых серверах и принимает технические и организационные меры для предотвращения утраты, несанкционированного доступа или разглашения.\n\n5.2. Персональные данные не передаются третьим лицам без правовых оснований, за исключением случаев, когда передача необходима для исполнения договора (например, логистика, курьерские службы, платёжные провайдеры) или предусмотрена законодательством.\n\n6. Права субъекта персональных данных\n\n6.1. Пользователь вправе:\n— получать информацию о своих данных;\n— требовать уточнения, блокировки или удаления персональных данных;\n— отзывать своё согласие на обработку данных;\n— подавать жалобы в уполномоченные органы.\n\n7. Cookies и аналогичные технологии\n\n7.1. Сайт использует cookies и аналогичные технологии для корректной работы, авторизации и аналитики.\n\n7.2. Пользователь может в любой момент отключить cookies в настройках браузера, однако это может привести к ограничению функциональности Сайта.\n\n8. Сроки хранения\n\n8.1. Персональные данные хранятся в течение срока, необходимого для достижения целей обработки, но не дольше, чем того требуют законодательные нормы и внутренние сроки хранения документов.\n\n9. Обновления Политики\n\n9.1. Оператор оставляет за собой право вносить изменения в Политику. Актуальная версия публикуется на Сайте.\n\nКонтакт для вопросов по обработке персональных данных: sales@burodsgn.ru.`
   }
 };
 document.querySelectorAll('.doc-link').forEach(link => {
@@ -495,6 +398,44 @@ document.querySelectorAll('.doc-link').forEach(link => {
       }
     });
   }
+})();
+
+// Render document text as paragraphs, add print/download
+(function(){
+  function renderDoc(text){
+    // simple paragraph split on double newlines
+    var parts = String(text).split(/\n\n+/).map(function(p){ return p.trim(); }).filter(Boolean);
+    return parts.map(function(p){ return '<p>'+ p.replace(/\n/g,'<br>') +'</p>'; }).join('');
+  }
+  var updated = 'Обновлено: ' + (new Date()).toLocaleDateString('ru-RU');
+  document.getElementById('modal-doc-updated').textContent = updated;
+
+  // intercept showModal to render current doc text
+  var originalShow = window.showModal;
+  window.showModal = function(id){
+    if(id === 'modal-doc'){
+      var title = document.getElementById('modal-doc-title').textContent || '';
+      var raw = document.getElementById('modal-doc-text').textContent || '';
+      // already set by docTexts handler; ensure HTML formatting
+      document.getElementById('modal-doc-text').innerHTML = renderDoc(raw);
+      document.getElementById('modal-doc-updated').textContent = updated;
+    }
+    return originalShow.apply(this, arguments);
+  };
+
+  // print
+  var btnPrint = document.getElementById('modal-doc-print');
+  if(btnPrint){ btnPrint.addEventListener('click', function(){ window.print(); }); }
+  // download as TXT
+  var btnDown = document.getElementById('modal-doc-download');
+  if(btnDown){ btnDown.addEventListener('click', function(){
+    var title = document.getElementById('modal-doc-title').textContent || 'document';
+    var txt = document.getElementById('modal-doc-text').textContent || '';
+    var blob = new Blob([title + '\n\n' + txt], {type:'text/plain;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a'); a.href = url; a.download = (title.replace(/[^a-z0-9а-яё\-\s]/ig,'') || 'document') + '.txt';
+    document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+  }); }
 })();
 
 // Small dev logger that shows messages in the floating box

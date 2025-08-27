@@ -4,43 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Проект 2 — BURO</title>
-  <link rel="stylesheet" href="../src/styles/main.css" />
-  <style>
-    /* Индивидуальные позиции изображений для проекта 2 */
-    .i1{width:290px;height:280px;left:30px;top:60px}
-    .i2{width:430px;height:280px;left:330px;top:60px}
-    .i3{width:360px;height:280px;left:770px;top:60px}
-    .i4{width:430px;height:283px;left:30px;top:377px}
-    .i5{width:290px;height:280px;left:470px;top:380px}
-    .i6{width:360px;height:280px;left:770px;top:380px}
-  </style>
+  <link rel="stylesheet" href="src/styles/main.css" />
+  <!-- Gallery styles are centralized in ../src/styles/main.css -->
+</head>
+<body class="project-page">
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Проект 2 — BURO</title>
+  <link rel="stylesheet" href="src/styles/main.css" />
 </head>
 <body>
-  <div class="page-wrap">
-    <div class="frame" role="main">
-      <div class="title">Проект 2</div>
-  <img class="i1 modal-enabled" src="../assets/фото2.jpg" alt="Фото 1" />
-  <img class="i2 modal-enabled" src="../assets/фото1.jpg" alt="Фото 2" />
-  <img class="i3 modal-enabled" src="../assets/фото3.jpg" alt="Фото 3" />
-  <img class="i4 modal-enabled" src="../assets/фото4.jpg" alt="Фото 4" />
-  <img class="i5 modal-enabled" src="../assets/фото5.jpg" alt="Фото 5" />
-  <img class="i6 modal-enabled" src="../assets/фото6.jpg" alt="Фото 6" />
+  <div style="width:100vw;min-height:100vh;background:#C8C8C8;">
+    <div style="width:1177px;height:962px;margin:40px auto 0 auto;position:relative;background:#C8C8C8;">
+      <div style="width:200px;height:28px;left:30px;top:17px;position:absolute;font-size:18px;font-weight:700;font-family: 'Inter', Arial, sans-serif;">Проект 2</div>
+      <img style="cursor:pointer;width:430px;height:280px;left:330px;top:60px;position:absolute;border-radius:10px" src="assets/фото2.jpg" alt="Гостиная" />
+      <img style="cursor:pointer;width:290px;height:280px;left:30px;top:60px;position:absolute;border-radius:10px" src="assets/фото1.jpg" alt="Ресторан" />
+      <img style="cursor:pointer;width:360px;height:280px;left:770px;top:60px;position:absolute;border-radius:10px" src="assets/фото3.jpg" alt="Прихожая" />
+      <img style="cursor:pointer;width:430px;height:280px;left:30px;top:377px;position:absolute;border-radius:10px" src="assets/фото4.jpg" alt="Спальня" />
+      <img style="cursor:pointer;width:290px;height:280px;left:470px;top:380px;position:absolute;border-radius:10px" src="assets/фото5.jpg" alt="Кухня" />
+      <img style="cursor:pointer;width:360px;height:280px;left:770px;top:380px;position:absolute;border-radius:10px" src="assets/фото6.jpg" alt="Кухня — рабочая зона" />
     </div>
+    <div style="width:1069px;margin:24px auto 0 auto;color:#000000;font-size:15px;line-height:1.55">
+      <span style="font-weight:700">Задача клиента:<br/></span>
+      <span>Создать функциональную кухню с обеденной зоной, сочетающуюся с открытой гостиной, с максимальным использованием пространства и скрытыми системами хранения.<br/><br/></span>
+    </div>
+    <!-- Модал просмотра -->
+    <div class="project-modal" role="dialog" aria-hidden="true" style="display:none;">
+      <img class="project-modal__img" src="" alt="" />
+      <button class="project-modal__close" aria-label="Закрыть модальное окно">✕</button>
+    </div>
+    <script src="src/js/modal.js"></script>
+    <script>
+      document.querySelectorAll('img[alt]').forEach(function(img){
+        img.addEventListener('click',function(){ window.projectModal.open(img.src); });
+      });
+    </script>
   </div>
-
-  <section style="max-width:1100px;margin:20px auto 60px;padding:0 20px;color:#000;font-size:15px;line-height:1.55;">
-    <h3 style="font-size:18px;margin-bottom:10px;font-weight:700;">Описание</h3>
-    <p>
-      <strong>Задача клиента:</strong><br>
-      Создать функциональную кухню с обеденной зоной, сочетающуюся с открытой гостиной, с максимальным использованием пространства и скрытыми системами хранения.
-    </p>
-  </section>
-
-  <div class="project-modal" role="dialog" aria-hidden="true">
-    <img class="project-modal__img" src="" alt="" />
-    <button class="project-modal__close" aria-label="Закрыть модальное окно">✕</button>
-  </div>
-
-  <script src="../src/js/modal.js"></script>
-  </body>
+</body>
 </html>
